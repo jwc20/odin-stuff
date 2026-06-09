@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odin Problem Set</title>
+<style>
+  html {
+    scrollbar-gutter: stable;
+  }
+  body {
+    line-height: 1.4;
+    font-size: 16px;
+    padding: 0 10px;
+    margin: 50px auto;
+    max-width: 650px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #111;
+    background: #fff;
+  }
+  main {
+    max-width: 42em;
+    margin: 15px auto;
+  }
+  h1, h2, h3 {
+    line-height: 1.2;
+  }
+  h1 {
+    font-size: 1.55rem;
+    margin-bottom: 0.25rem;
+  }
+  h2 {
+    margin-top: 2.25rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #ddd;
+    font-size: 1.25rem;
+  }
+  .intro {
+    color: #444;
+  }
+  .problem {
+    margin: 1rem 0;
+  }
+  .problem-text {
+    margin: 0 0 0.3rem 0;
+  }
+  .answer-link {
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .answer-link:hover {
+    text-decoration-thickness: 2px;
+  }
+  pre.answer {
+    display: none;
+    margin: 0.45rem 0 1rem 0;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+  code, pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  }
+  .chapter-nav {
+    margin: 1.5rem 0 2rem;
+    padding-left: 1.2rem;
+  }
+  .chapter-nav a {
+    color: inherit;
+  }
+  footer {
+    margin: 60px auto 30px;
+    padding-top: 18px;
+    border-top: 1px solid #ddd;
+    color: #555;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+<main id="maincontent">
+<h1><strong>Odin Problem Set</strong></h1>
+<p class="intro">Interactive problem set organized by chapter. Click <strong>[answer]</strong> to reveal the answer in a code box below each question.</p>
+<p class="intro">Total problems: 225</p>
+<h3>Chapters</h3>
+<ul class="chapter-nav">
+<li><a href="#chapter-3-variables-and-constants">Chapter 3: Variables and Constants</a></li>
+<li><a href="#chapter-4-some-additional-basics">Chapter 4: Some Additional Basics</a></li>
+<li><a href="#chapter-5-making-new-types">Chapter 5: Making New Types</a></li>
+<li><a href="#chapter-6-pointers">Chapter 6: Pointers</a></li>
+</ul>
+<section id="chapter-3-variables-and-constants">
+<h2>Chapter 3: Variables and Constants</h2>
+<div class="problem">
+<p class="problem-text">1. <strong>Code:</strong> Declare a variable named <code>number</code> with type <code>int</code> without assigning a value. <a href="#answer-1-1" class="answer-link" data-target="answer-1-1">[answer]</a></p>
+<pre class="answer" id="answer-1-1"><code>number: int</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">2. <strong>Concept:</strong> What value does an Odin variable have if you declare it without assigning a value? <a href="#answer-1-2" class="answer-link" data-target="answer-1-2">[answer]</a></p>
+<pre class="answer" id="answer-1-2"><code>It has the zero value. For an integer, that means `0`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">3. <strong>Code:</strong> Show how to declare an <code>int</code> variable but leave it non-initialized. <a href="#answer-1-3" class="answer-link" data-target="answer-1-3">[answer]</a></p>
+<pre class="answer" id="answer-1-3"><code>number: int = ---</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">4. <strong>Concept:</strong> Why is leaving a variable non-initialized usually avoided? <a href="#answer-1-4" class="answer-link" data-target="answer-1-4">[answer]</a></p>
+<pre class="answer" id="answer-1-4"><code>It can leave garbage memory and cause bugs. Odin normally zero-initializes variables.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">5. <strong>Code:</strong> Declare <code>number</code> as an <code>int</code>, then assign it the value <code>7</code>. <a href="#answer-1-5" class="answer-link" data-target="answer-1-5">[answer]</a></p>
+<pre class="answer" id="answer-1-5"><code>number: int
+number = 7</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">6. <strong>Code:</strong> Declare and assign <code>number</code> to <code>7</code> in one line using type inference. <a href="#answer-1-6" class="answer-link" data-target="answer-1-6">[answer]</a></p>
+<pre class="answer" id="answer-1-6"><code>number := 7</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">7. <strong>Concept:</strong> What does type inference mean in <code>number := 7</code>? <a href="#answer-1-7" class="answer-link" data-target="answer-1-7">[answer]</a></p>
+<pre class="answer" id="answer-1-7"><code>The compiler looks at `7` and infers that `number` should be an `int`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">8. <strong>Code:</strong> Write the small program that prints <code>number</code>, changes it, then prints it again. <a href="#answer-1-8" class="answer-link" data-target="answer-1-8">[answer]</a></p>
+<pre class="answer" id="answer-1-8"><code>package variable_example
+
+import &quot;core:fmt&quot;
+
+main :: proc() {
+	number := 7
+	fmt.println(number) // prints 7
+	number = 12
+	fmt.println(number) // prints 12
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">9. <strong>Code:</strong> Give the multi-line comment example. <a href="#answer-1-9" class="answer-link" data-target="answer-1-9">[answer]</a></p>
+<pre class="answer" id="answer-1-9"><code>/* comment */</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">10. <strong>Concept:</strong> When should you use <code>:=</code> instead of <code>=</code>? <a href="#answer-1-10" class="answer-link" data-target="answer-1-10">[answer]</a></p>
+<pre class="answer" id="answer-1-10"><code>Use `:=` when declaring and initializing a new variable. Use `=` when assigning to an existing variable.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">11. <strong>Code:</strong> Declare a variable named <code>decimal_number</code> with type <code>f32</code>. <a href="#answer-1-11" class="answer-link" data-target="answer-1-11">[answer]</a></p>
+<pre class="answer" id="answer-1-11"><code>decimal_number: f32</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">12. <strong>Concept:</strong> What does the <code>f</code> in <code>f32</code> stand for? <a href="#answer-1-12" class="answer-link" data-target="answer-1-12">[answer]</a></p>
+<pre class="answer" id="answer-1-12"><code>`f` stands for floating point number.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">13. <strong>Code:</strong> Initialize an <code>f32</code> variable to <code>7</code> by writing the type on the left side. <a href="#answer-1-13" class="answer-link" data-target="answer-1-13">[answer]</a></p>
+<pre class="answer" id="answer-1-13"><code>decimal_number: f32 = 7</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">14. <strong>Code:</strong> Initialize an <code>f32</code> variable to <code>7</code> by casting the value on the right side. <a href="#answer-1-14" class="answer-link" data-target="answer-1-14">[answer]</a></p>
+<pre class="answer" id="answer-1-14"><code>decimal_number := f32(7)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">15. <strong>Concept:</strong> What does <code>f32(7)</code> do? <a href="#answer-1-15" class="answer-link" data-target="answer-1-15">[answer]</a></p>
+<pre class="answer" id="answer-1-15"><code>It casts or converts `7` to the type `f32`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">16. <strong>Code:</strong> Declare an <code>f32</code> variable and initialize it to <code>7.42</code>. <a href="#answer-1-16" class="answer-link" data-target="answer-1-16">[answer]</a></p>
+<pre class="answer" id="answer-1-16"><code>decimal_number: f32 = 7.42</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">17. <strong>Code:</strong> Use type inference with <code>7.42</code>. <a href="#answer-1-17" class="answer-link" data-target="answer-1-17">[answer]</a></p>
+<pre class="answer" id="answer-1-17"><code>decimal_number := 7.42</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">18. <strong>Concept:</strong> What type is inferred from <code>decimal_number := 7.42</code>? <a href="#answer-1-18" class="answer-link" data-target="answer-1-18">[answer]</a></p>
+<pre class="answer" id="answer-1-18"><code>The inferred type is `f64`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">19. <strong>Code:</strong> Show the snippet where assigning plain <code>7</code> to an <code>f32</code> compiles. <a href="#answer-1-19" class="answer-link" data-target="answer-1-19">[answer]</a></p>
+<pre class="answer" id="answer-1-19"><code>number := 7
+decimal_number: f32 = 7</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">20. <strong>Code:</strong> Show the snippet where assigning an <code>int</code> variable to an <code>f32</code> variable does not compile. <a href="#answer-1-20" class="answer-link" data-target="answer-1-20">[answer]</a></p>
+<pre class="answer" id="answer-1-20"><code>number := 7
+decimal_number: f32 = number</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">21. <strong>Code:</strong> Fix the previous issue by explicitly casting <code>number</code> to <code>f32</code>. <a href="#answer-1-21" class="answer-link" data-target="answer-1-21">[answer]</a></p>
+<pre class="answer" id="answer-1-21"><code>decimal_number := f32(number)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">22. <strong>Concept:</strong> Why can <code>decimal_number: f32 = 7</code> compile, but <code>decimal_number: f32 = number</code> fail? <a href="#answer-1-22" class="answer-link" data-target="answer-1-22">[answer]</a></p>
+<pre class="answer" id="answer-1-22"><code>Plain `7` is an Untyped Integer constant, so it can be implicitly converted to `f32`. But `number` is already an `int` variable, and Odin will not automatically convert an `int` variable to `f32`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">23. <strong>Code:</strong> Show the example where an <code>f32</code> variable is declared and later assigned plain <code>7</code>. <a href="#answer-1-23" class="answer-link" data-target="answer-1-23">[answer]</a></p>
+<pre class="answer" id="answer-1-23"><code>decimal_number: f32
+decimal_number = 7</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">24. <strong>Code:</strong> Create a named constant with the value <code>12</code>. <a href="#answer-1-24" class="answer-link" data-target="answer-1-24">[answer]</a></p>
+<pre class="answer" id="answer-1-24"><code>CONSTANT_NUMBER :: 12</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">25. <strong>Concept:</strong> What operator is used to create named constants? <a href="#answer-1-25" class="answer-link" data-target="answer-1-25">[answer]</a></p>
+<pre class="answer" id="answer-1-25"><code>The `::` operator.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">26. <strong>Code:</strong> Assign a named constant to a variable. <a href="#answer-1-26" class="answer-link" data-target="answer-1-26">[answer]</a></p>
+<pre class="answer" id="answer-1-26"><code>CONSTANT_NUMBER :: 12
+number := CONSTANT_NUMBER</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">27. <strong>Code:</strong> Show the equivalent inferred variable assignment for the constant value <code>12</code>. <a href="#answer-1-27" class="answer-link" data-target="answer-1-27">[answer]</a></p>
+<pre class="answer" id="answer-1-27"><code>number := 12</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">28. <strong>Concept:</strong> What does it mean that named constants are like being copy-pasted at compile time? <a href="#answer-1-28" class="answer-link" data-target="answer-1-28">[answer]</a></p>
+<pre class="answer" id="answer-1-28"><code>The compiler can replace the constant name with its value wherever the name appears.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">29. <strong>Code:</strong> Show the constant that is too large for an <code>i8</code> variable. <a href="#answer-1-29" class="answer-link" data-target="answer-1-29">[answer]</a></p>
+<pre class="answer" id="answer-1-29"><code>BIG_CONSTANT_NUMBER :: 100000000
+small_number: i8 = BIG_CONSTANT_NUMBER</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">30. <strong>Concept:</strong> What is the biggest value an <code>i8</code> can contain? <a href="#answer-1-30" class="answer-link" data-target="answer-1-30">[answer]</a></p>
+<pre class="answer" id="answer-1-30"><code>`127`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">31. <strong>Code:</strong> Show an Untyped Float constant that cannot be assigned to an <code>int</code> variable. <a href="#answer-1-31" class="answer-link" data-target="answer-1-31">[answer]</a></p>
+<pre class="answer" id="answer-1-31"><code>DECIMAL_CONSTANT :: 27.12
+my_integer: int = DECIMAL_CONSTANT</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">32. <strong>Code:</strong> Show an Untyped Float with all zero decimals assigned to an <code>int</code> variable. <a href="#answer-1-32" class="answer-link" data-target="answer-1-32">[answer]</a></p>
+<pre class="answer" id="answer-1-32"><code>DECIMAL_CONSTANT :: 7.0
+my_integer: int = DECIMAL_CONSTANT</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">33. <strong>Code:</strong> Show the equivalent direct assignment of <code>7.0</code> to an <code>int</code>. <a href="#answer-1-33" class="answer-link" data-target="answer-1-33">[answer]</a></p>
+<pre class="answer" id="answer-1-33"><code>my_int: int = 7.0</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">34. <strong>Code:</strong> Show a decimal value that cannot fit into <code>i8</code>. <a href="#answer-1-34" class="answer-link" data-target="answer-1-34">[answer]</a></p>
+<pre class="answer" id="answer-1-34"><code>my_int: i8 = 400.0</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">35. <strong>Concept:</strong> What does it mean for an Untyped Float to be converted to an integer without truncation? <a href="#answer-1-35" class="answer-link" data-target="answer-1-35">[answer]</a></p>
+<pre class="answer" id="answer-1-35"><code>It means no fractional part is lost. For example, `7.0` can become an integer, but `7.42` cannot.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">36. <strong>Code:</strong> Use type inference with <code>13.38</code>. <a href="#answer-1-36" class="answer-link" data-target="answer-1-36">[answer]</a></p>
+<pre class="answer" id="answer-1-36"><code>decimal_number := 13.38</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">37. <strong>Concept:</strong> What is the default inferred type for an Untyped Integer? <a href="#answer-1-37" class="answer-link" data-target="answer-1-37">[answer]</a></p>
+<pre class="answer" id="answer-1-37"><code>`int`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">38. <strong>Concept:</strong> What is the default inferred type for an Untyped Float? <a href="#answer-1-38" class="answer-link" data-target="answer-1-38">[answer]</a></p>
+<pre class="answer" id="answer-1-38"><code>`f64`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">39. <strong>Code:</strong> Show assigning <code>7.42</code> to a previously declared <code>f32</code> variable. <a href="#answer-1-39" class="answer-link" data-target="answer-1-39">[answer]</a></p>
+<pre class="answer" id="answer-1-39"><code>decimal_number: f32
+decimal_number = 7.42</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">40. <strong>Code:</strong> Create an explicitly typed constant of type <code>f32</code>. <a href="#answer-1-40" class="answer-link" data-target="answer-1-40">[answer]</a></p>
+<pre class="answer" id="answer-1-40"><code>DECIMAL_CONSTANT: f32 : 7.42</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">41. <strong>Code:</strong> Compare that constant syntax with a variable declaration of type <code>f32</code>. <a href="#answer-1-41" class="answer-link" data-target="answer-1-41">[answer]</a></p>
+<pre class="answer" id="answer-1-41"><code>decimal_variable: f32 = 7.42</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">42. <strong>Code:</strong> Show the two valid assignments of <code>0.5</code> to <code>f32</code> and <code>f64</code> variables. <a href="#answer-1-42" class="answer-link" data-target="answer-1-42">[answer]</a></p>
+<pre class="answer" id="answer-1-42"><code>decimal_32: f32
+decimal_32 = 0.5
+
+decimal_64: f64
+decimal_64 = 0.5</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">43. <strong>Concept:</strong> Why does Odin let <code>0.5</code> be assigned to both <code>f32</code> and <code>f64</code> without writing <code>0.5f</code>? <a href="#answer-1-43" class="answer-link" data-target="answer-1-43">[answer]</a></p>
+<pre class="answer" id="answer-1-43"><code>Odin delays the final type choice for untyped constants until it needs to choose a specific type.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">44. <strong>Concept:</strong> What is a literal? <a href="#answer-1-44" class="answer-link" data-target="answer-1-44">[answer]</a></p>
+<pre class="answer" id="answer-1-44"><code>A literal is a value written directly in source code, such as `0.5` or `&quot;cat&quot;`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">45. <strong>Concept:</strong> List the signed integer types mentioned in the text. <a href="#answer-1-45" class="answer-link" data-target="answer-1-45">[answer]</a></p>
+<pre class="answer" id="answer-1-45"><code>`int`, `i8`, `i16`, `i32`, `i64`, `i128`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">46. <strong>Concept:</strong> List the unsigned integer types mentioned in the text. <a href="#answer-1-46" class="answer-link" data-target="answer-1-46">[answer]</a></p>
+<pre class="answer" id="answer-1-46"><code>`uint`, `u8`, `u16`, `u32`, `u64`, `u128`, `uintptr`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">47. <strong>Concept:</strong> List the floating point types mentioned in the text. <a href="#answer-1-47" class="answer-link" data-target="answer-1-47">[answer]</a></p>
+<pre class="answer" id="answer-1-47"><code>`f16`, `f32`, `f64`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">48. <strong>Concept:</strong> What is the zero value of <code>bool</code>? <a href="#answer-1-48" class="answer-link" data-target="answer-1-48">[answer]</a></p>
+<pre class="answer" id="answer-1-48"><code>`false`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">49. <strong>Concept:</strong> What is the zero value of <code>string</code>? <a href="#answer-1-49" class="answer-link" data-target="answer-1-49">[answer]</a></p>
+<pre class="answer" id="answer-1-49"><code>`&quot;&quot;`, the empty string.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">50. <strong>Concept:</strong> What is a <code>rune</code>? <a href="#answer-1-50" class="answer-link" data-target="answer-1-50">[answer]</a></p>
+<pre class="answer" id="answer-1-50"><code>A single UTF-8 string code point, internally a 32 bit signed integer.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">51. <strong>Code:</strong> Give the inferred type example for an Untyped Boolean. <a href="#answer-1-51" class="answer-link" data-target="answer-1-51">[answer]</a></p>
+<pre class="answer" id="answer-1-51"><code>some_variable := true</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">52. <strong>Code:</strong> Give the example of an integer constant too large for <code>i8</code> from the Untyped Integer summary. <a href="#answer-1-52" class="answer-link" data-target="answer-1-52">[answer]</a></p>
+<pre class="answer" id="answer-1-52"><code>some_variable: i8 = 10000</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">53. <strong>Code:</strong> Give the inferred type example for an Untyped Integer. <a href="#answer-1-53" class="answer-link" data-target="answer-1-53">[answer]</a></p>
+<pre class="answer" id="answer-1-53"><code>some_variable := 7</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">54. <strong>Code:</strong> Give the inferred type example for an Untyped Float. <a href="#answer-1-54" class="answer-link" data-target="answer-1-54">[answer]</a></p>
+<pre class="answer" id="answer-1-54"><code>some_variable := 23.12</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">55. <strong>Code:</strong> Give the inferred type example for an Untyped String. <a href="#answer-1-55" class="answer-link" data-target="answer-1-55">[answer]</a></p>
+<pre class="answer" id="answer-1-55"><code>some_variable := &quot;Hellope&quot;</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">56. <strong>Code:</strong> Give the inferred type example for an Untyped Rune. <a href="#answer-1-56" class="answer-link" data-target="answer-1-56">[answer]</a></p>
+<pre class="answer" id="answer-1-56"><code>some_variable := &#x27;A&#x27;</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">57. <strong>Code:</strong> Give the Untyped Rune example that will not compile because it does not fit into <code>i8</code>. <a href="#answer-1-57" class="answer-link" data-target="answer-1-57">[answer]</a></p>
+<pre class="answer" id="answer-1-57"><code>x: i8 = &#x27;猫&#x27;</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">58. <strong>Code:</strong> Give the Untyped nil type inference example that will not compile. <a href="#answer-1-58" class="answer-link" data-target="answer-1-58">[answer]</a></p>
+<pre class="answer" id="answer-1-58"><code>some_variable := nil
+
+---</code></pre>
+</div>
+</section>
+<section id="chapter-4-some-additional-basics">
+<h2>Chapter 4: Some Additional Basics</h2>
+<div class="problem">
+<p class="problem-text">1. <strong>Code:</strong> Define a procedure named <code>is_bigger_than</code> with two <code>int</code> parameters and one <code>bool</code> return value. <a href="#answer-2-1" class="answer-link" data-target="answer-2-1">[answer]</a></p>
+<pre class="answer" id="answer-2-1"><code>is_bigger_than :: proc(number: int, compare_to: int) -&gt; bool {
+	return number &gt; compare_to
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">2. <strong>Concept:</strong> What does the <code>-&gt; bool</code> part of the procedure declaration mean? <a href="#answer-2-2" class="answer-link" data-target="answer-2-2">[answer]</a></p>
+<pre class="answer" id="answer-2-2"><code>It means the procedure returns a value of type `bool`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">3. <strong>Code:</strong> Call <code>is_bigger_than</code> with <code>3</code> and <code>2</code>, then store the result. <a href="#answer-2-3" class="answer-link" data-target="answer-2-3">[answer]</a></p>
+<pre class="answer" id="answer-2-3"><code>result := is_bigger_than(3, 2)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">4. <strong>Concept:</strong> What type is inferred for <code>result</code>? <a href="#answer-2-4" class="answer-link" data-target="answer-2-4">[answer]</a></p>
+<pre class="answer" id="answer-2-4"><code>`bool`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">5. <strong>Code:</strong> Write the basic shape of an Odin <code>if</code> statement. <a href="#answer-2-5" class="answer-link" data-target="answer-2-5">[answer]</a></p>
+<pre class="answer" id="answer-2-5"><code>if condition {
+	// Code in here will run if `condition`
+	// is true.
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">6. <strong>Concept:</strong> What type must an Odin <code>if</code> condition be? <a href="#answer-2-6" class="answer-link" data-target="answer-2-6">[answer]</a></p>
+<pre class="answer" id="answer-2-6"><code>`bool`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">7. <strong>Code:</strong> Show the Odin way to use an integer in a condition. <a href="#answer-2-7" class="answer-link" data-target="answer-2-7">[answer]</a></p>
+<pre class="answer" id="answer-2-7"><code>if some_int &gt; 0 {}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">8. <strong>Code:</strong> Check whether <code>some_variable</code> equals <code>7</code>, then print a message. <a href="#answer-2-8" class="answer-link" data-target="answer-2-8">[answer]</a></p>
+<pre class="answer" id="answer-2-8"><code>some_variable := 7
+
+if some_variable == 7 {
+	fmt.println(&quot;It&#x27;s seven!&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">9. <strong>Code:</strong> List the comparison operators shown in the text. <a href="#answer-2-9" class="answer-link" data-target="answer-2-9">[answer]</a></p>
+<pre class="answer" id="answer-2-9"><code>== // left and right are equal
+!= // left and right not equal
+&lt;  // left is less than right
+&lt;= // left is less than or equal to right
+&gt;  // left is greater than right
+&gt;= // left is greater than or equal to right</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">10. <strong>Concept:</strong> What type does a comparison operator produce? <a href="#answer-2-10" class="answer-link" data-target="answer-2-10">[answer]</a></p>
+<pre class="answer" id="answer-2-10"><code>`bool`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">11. <strong>Code:</strong> Write the example that combines <code>&amp;&amp;</code>, <code>||</code>, and parentheses. <a href="#answer-2-11" class="answer-link" data-target="answer-2-11">[answer]</a></p>
+<pre class="answer" id="answer-2-11"><code>if var1 == 7 &amp;&amp; (var2 == 12 || var3 == 42) {
+	// In here var1 is 7. And at least one
+	// of the following is true:
+	// var2 is 12 OR var3 is 42
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">12. <strong>Concept:</strong> Which operator has precedence, <code>&amp;&amp;</code> or <code>||</code>? <a href="#answer-2-12" class="answer-link" data-target="answer-2-12">[answer]</a></p>
+<pre class="answer" id="answer-2-12"><code>`&amp;&amp;` is evaluated before `||`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">13. <strong>Code:</strong> Show the multiplication and addition precedence examples. <a href="#answer-2-13" class="answer-link" data-target="answer-2-13">[answer]</a></p>
+<pre class="answer" id="answer-2-13"><code>x * y + z
+
+x * (y + z)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">14. <strong>Code:</strong> Show the short-circuiting example with <code>some_proc()</code>. <a href="#answer-2-14" class="answer-link" data-target="answer-2-14">[answer]</a></p>
+<pre class="answer" id="answer-2-14"><code>if var == 7 &amp;&amp; some_proc() {
+	// var is 7
+	// some_proc() returned true
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">15. <strong>Concept:</strong> When will <code>some_proc()</code> not run in that example? <a href="#answer-2-15" class="answer-link" data-target="answer-2-15">[answer]</a></p>
+<pre class="answer" id="answer-2-15"><code>It will not run if `var` is not equal to `7`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">16. <strong>Code:</strong> Flip a boolean condition using <code>!</code>. <a href="#answer-2-16" class="answer-link" data-target="answer-2-16">[answer]</a></p>
+<pre class="answer" id="answer-2-16"><code>some_variable := 7
+my_condition := some_variable == 7
+
+if !my_condition {
+	fmt.println(&quot;some_variable is not 7&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">17. <strong>Code:</strong> Write an <code>if</code>, <code>else if</code>, and <code>else</code> chain. <a href="#answer-2-17" class="answer-link" data-target="answer-2-17">[answer]</a></p>
+<pre class="answer" id="answer-2-17"><code>if some_variable &gt; 7 {
+	// some_variable is larger than 7
+} else if some_other_variable == 2 {
+	// some_variable is less or equal to 7
+	// and some_other_variable is 2
+} else {
+	// some_variable is less or equal to 7
+	// and some_other_variable is not 2
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">18. <strong>Code:</strong> Show the invalid if-statement without curly braces. <a href="#answer-2-18" class="answer-link" data-target="answer-2-18">[answer]</a></p>
+<pre class="answer" id="answer-2-18"><code>if some_variable == 7
+	some_proc()</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">19. <strong>Code:</strong> Write the allowed one-line <code>if</code> statement. <a href="#answer-2-19" class="answer-link" data-target="answer-2-19">[answer]</a></p>
+<pre class="answer" id="answer-2-19"><code>if some_variable == 7 { some_proc() }</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">20. <strong>Code:</strong> Write the allowed <code>do</code> form of the if-statement. <a href="#answer-2-20" class="answer-link" data-target="answer-2-20">[answer]</a></p>
+<pre class="answer" id="answer-2-20"><code>if some_variable == 7 do some_proc()</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">21. <strong>Code:</strong> Write the full three-line if-statement preferred in the text. <a href="#answer-2-21" class="answer-link" data-target="answer-2-21">[answer]</a></p>
+<pre class="answer" id="answer-2-21"><code>if some_variable == 7 {
+	some_proc()
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">22. <strong>Code:</strong> Write an infinite <code>for</code> loop. <a href="#answer-2-22" class="answer-link" data-target="answer-2-22">[answer]</a></p>
+<pre class="answer" id="answer-2-22"><code>for {
+	fmt.println(&quot;Printed over and over, forever&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">23. <strong>Code:</strong> Give the two C equivalents mentioned for an infinite loop. <a href="#answer-2-23" class="answer-link" data-target="answer-2-23">[answer]</a></p>
+<pre class="answer" id="answer-2-23"><code>while(true) {}
+
+```c
+for (;;) {}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">24. <strong>Code:</strong> Write an infinite loop that stops with <code>break</code> when <code>condition</code> is true. <a href="#answer-2-24" class="answer-link" data-target="answer-2-24">[answer]</a></p>
+<pre class="answer" id="answer-2-24"><code>for {
+	if condition {
+		break
+	}
+
+	fmt.println(&quot;Printed over and over, until &#x27;condition&#x27; becomes true&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">25. <strong>Code:</strong> Write a loop that runs while <code>condition</code> is true. <a href="#answer-2-25" class="answer-link" data-target="answer-2-25">[answer]</a></p>
+<pre class="answer" id="answer-2-25"><code>for condition {
+	fmt.println(&quot;Printed over and over, until &#x27;condition&#x27; becomes false&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">26. <strong>Code:</strong> Give the C equivalent of that condition loop. <a href="#answer-2-26" class="answer-link" data-target="answer-2-26">[answer]</a></p>
+<pre class="answer" id="answer-2-26"><code>while (condition) {}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">27. <strong>Code:</strong> Write a loop that prints <code>0</code> through <code>9</code> by manually increasing <code>i</code>. <a href="#answer-2-27" class="answer-link" data-target="answer-2-27">[answer]</a></p>
+<pre class="answer" id="answer-2-27"><code>i := 0
+for i &lt; 10 {
+	fmt.println(i) // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+	i += 1
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">28. <strong>Code:</strong> Move initialization, condition, and increment into the <code>for</code> line. <a href="#answer-2-28" class="answer-link" data-target="answer-2-28">[answer]</a></p>
+<pre class="answer" id="answer-2-28"><code>for i := 0; i &lt; 10; i += 1 {
+	fmt.println(i) // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">29. <strong>Code:</strong> Show how Odin increments by one without <code>++</code>. <a href="#answer-2-29" class="answer-link" data-target="answer-2-29">[answer]</a></p>
+<pre class="answer" id="answer-2-29"><code>i += 1</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">30. <strong>Concept:</strong> Why does Odin avoid <code>++</code> and <code>--</code>? <a href="#answer-2-30" class="answer-link" data-target="answer-2-30">[answer]</a></p>
+<pre class="answer" id="answer-2-30"><code>It removes subtle bugs related to evaluation order.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">31. <strong>Code:</strong> Give the C-style bug example using <code>i++</code>. <a href="#answer-2-31" class="answer-link" data-target="answer-2-31">[answer]</a></p>
+<pre class="answer" id="answer-2-31"><code>some_array[i++] = other_array[i];</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">32. <strong>Code:</strong> Write the compact range loop from <code>0</code> to less than <code>10</code>. <a href="#answer-2-32" class="answer-link" data-target="answer-2-32">[answer]</a></p>
+<pre class="answer" id="answer-2-32"><code>for i in 0..&lt;10 {
+	fmt.println(i) // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">33. <strong>Code:</strong> Write the range loop from <code>0</code> through <code>10</code>. <a href="#answer-2-33" class="answer-link" data-target="answer-2-33">[answer]</a></p>
+<pre class="answer" id="answer-2-33"><code>for i in 0..=10 {
+	fmt.println(i) // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">34. <strong>Concept:</strong> What is the difference between <code>..&lt;</code> and <code>..=</code>? <a href="#answer-2-34" class="answer-link" data-target="answer-2-34">[answer]</a></p>
+<pre class="answer" id="answer-2-34"><code>`..&lt;` excludes the upper bound. `..=` includes the upper bound.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">35. <strong>Code:</strong> Write the nested loop with an <code>outer</code> label and <code>break outer</code>. <a href="#answer-2-35" class="answer-link" data-target="answer-2-35">[answer]</a></p>
+<pre class="answer" id="answer-2-35"><code>outer: for x in 0..&lt;20 {
+	for y in 0..&lt;20 {
+		if x == 5 &amp;&amp; y == 5 {
+			break outer
+		}
+	}
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">36. <strong>Code:</strong> Write the loop that skips printing <code>5</code> using <code>continue</code>. <a href="#answer-2-36" class="answer-link" data-target="answer-2-36">[answer]</a></p>
+<pre class="answer" id="answer-2-36"><code>for i in 0..&lt;10 {
+	if i == 5 {
+		// skips printing &quot;5&quot;
+		continue
+	}
+	fmt.println(i) // 0, 1, 2, 3, 4, 6, 7, 8, 9
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">37. <strong>Code:</strong> Show how to continue a labeled loop. <a href="#answer-2-37" class="answer-link" data-target="answer-2-37">[answer]</a></p>
+<pre class="answer" id="answer-2-37"><code>continue some_label</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">38. <strong>Code:</strong> Declare a fixed array of 10 integers. <a href="#answer-2-38" class="answer-link" data-target="answer-2-38">[answer]</a></p>
+<pre class="answer" id="answer-2-38"><code>ten_ints: [10]int</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">39. <strong>Concept:</strong> What is a fixed array? <a href="#answer-2-39" class="answer-link" data-target="answer-2-39">[answer]</a></p>
+<pre class="answer" id="answer-2-39"><code>A fixed array is a list of items with a fixed length. It cannot be made longer or shorter.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">40. <strong>Code:</strong> Declare and initialize a fixed array of 10 integers. <a href="#answer-2-40" class="answer-link" data-target="answer-2-40">[answer]</a></p>
+<pre class="answer" id="answer-2-40"><code>ten_ints := [10]int {
+	61, 81, 12, 41, 5, 10, 1234, 8, 4, 1,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">41. <strong>Code:</strong> Show how to change the value of an existing array. <a href="#answer-2-41" class="answer-link" data-target="answer-2-41">[answer]</a></p>
+<pre class="answer" id="answer-2-41"><code>ten_ints = { your ten numbers }</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">42. <strong>Code:</strong> Fetch the third item from <code>ten_ints</code>. <a href="#answer-2-42" class="answer-link" data-target="answer-2-42">[answer]</a></p>
+<pre class="answer" id="answer-2-42"><code>third_item := ten_ints[2]</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">43. <strong>Code:</strong> Set item index <code>6</code> of <code>ten_ints</code> to <code>7</code>. <a href="#answer-2-43" class="answer-link" data-target="answer-2-43">[answer]</a></p>
+<pre class="answer" id="answer-2-43"><code>ten_ints[6] = 7</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">44. <strong>Code:</strong> Loop through all elements of <code>ten_ints</code>. <a href="#answer-2-44" class="answer-link" data-target="answer-2-44">[answer]</a></p>
+<pre class="answer" id="answer-2-44"><code>for n in ten_ints {
+	fmt.println(n) // 61, 81, 12, 41, 5, 10, 1234, 8, 4, 1
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">45. <strong>Code:</strong> Loop through all elements of <code>ten_ints</code> in reverse. <a href="#answer-2-45" class="answer-link" data-target="answer-2-45">[answer]</a></p>
+<pre class="answer" id="answer-2-45"><code>#reverse for n in ten_ints {
+	fmt.println(n) // 1, 4, 8, 1234, 10, 5, 41, 12, 81, 61
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">46. <strong>Code:</strong> Write the full “all together” program from the text. <a href="#answer-2-46" class="answer-link" data-target="answer-2-46">[answer]</a></p>
+<pre class="answer" id="answer-2-46"><code>package just_the_basics
+
+import &quot;core:fmt&quot;
+
+main :: proc() {
+	numbers := [10]int {
+		6, 4, 7, 10, 1, -1, -9, 100, 1, 54,
+	}
+
+	cmp := 6
+
+	for n in numbers {
+		if is_bigger_than(n, cmp) {
+			fmt.printfln(&quot;%v is bigger than %v&quot;, n, cmp)
+		}	
+	}
+}
+
+is_bigger_than :: proc(number: int, compare_to: int) -&gt; bool {
+	return number &gt; compare_to
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">47. <strong>Concept:</strong> What does <code>fmt.printfln(&quot;%v is bigger than %v&quot;, n, cmp)</code> do? <a href="#answer-2-47" class="answer-link" data-target="answer-2-47">[answer]</a></p>
+<pre class="answer" id="answer-2-47"><code>It replaces the two `%v` placeholders with `n` and `cmp` in that order.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">48. <strong>Concept:</strong> What will the “all together” program print? <a href="#answer-2-48" class="answer-link" data-target="answer-2-48">[answer]</a></p>
+<pre class="answer" id="answer-2-48"><code>7 is bigger than 6
+10 is bigger than 6
+100 is bigger than 6
+54 is bigger than 6
+
+---</code></pre>
+</div>
+</section>
+<section id="chapter-5-making-new-types">
+<h2>Chapter 5: Making New Types</h2>
+<div class="problem">
+<p class="problem-text">1. <strong>Code:</strong> Define a <code>Rectangle</code> struct with <code>x</code>, <code>y</code>, <code>width</code>, and <code>height</code> fields. <a href="#answer-3-1" class="answer-link" data-target="answer-3-1">[answer]</a></p>
+<pre class="answer" id="answer-3-1"><code>Rectangle :: struct {
+	x: f32,
+	y: f32,
+	width: f32,
+	height: f32,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">2. <strong>Concept:</strong> What is a struct used for? <a href="#answer-3-2" class="answer-link" data-target="answer-3-2">[answer]</a></p>
+<pre class="answer" id="answer-3-2"><code>A struct groups fields together so you can reason about them as one larger thing.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">3. <strong>Code:</strong> Create a variable named <code>rect</code> of type <code>Rectangle</code>. <a href="#answer-3-3" class="answer-link" data-target="answer-3-3">[answer]</a></p>
+<pre class="answer" id="answer-3-3"><code>rect: Rectangle</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">4. <strong>Code:</strong> Initialize a <code>Rectangle</code> using named fields and <code>:=</code>. <a href="#answer-3-4" class="answer-link" data-target="answer-3-4">[answer]</a></p>
+<pre class="answer" id="answer-3-4"><code>rect := Rectangle {
+	width = 20,
+	height = 10,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">5. <strong>Concept:</strong> What happens to fields that are not mentioned in a designated initializer? <a href="#answer-3-5" class="answer-link" data-target="answer-3-5">[answer]</a></p>
+<pre class="answer" id="answer-3-5"><code>They are zero-initialized.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">6. <strong>Code:</strong> Initialize a <code>Rectangle</code> using the type between <code>:</code> and <code>=</code>. <a href="#answer-3-6" class="answer-link" data-target="answer-3-6">[answer]</a></p>
+<pre class="answer" id="answer-3-6"><code>rect: Rectangle = {
+	width = 20,
+	height = 10,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">7. <strong>Code:</strong> Reassign an existing <code>Rectangle</code> with new field values. <a href="#answer-3-7" class="answer-link" data-target="answer-3-7">[answer]</a></p>
+<pre class="answer" id="answer-3-7"><code>rect := Rectangle {
+	width = 20,
+	height = 10,
+}
+
+// a bit later
+
+rect = {
+	x = 10,
+	width = 5,
+	height = 7,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">8. <strong>Code:</strong> Initialize a <code>Rectangle</code> without field names. <a href="#answer-3-8" class="answer-link" data-target="answer-3-8">[answer]</a></p>
+<pre class="answer" id="answer-3-8"><code>rect := Rectangle {
+	20, 20,
+	200, 200,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">9. <strong>Concept:</strong> What is required when initializing a struct without field names? <a href="#answer-3-9" class="answer-link" data-target="answer-3-9">[answer]</a></p>
+<pre class="answer" id="answer-3-9"><code>You must list all fields in the order they are defined.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">10. <strong>Code:</strong> Define <code>Person_Stats</code> and <code>Person</code>, where <code>Person</code> contains <code>Person_Stats</code>. <a href="#answer-3-10" class="answer-link" data-target="answer-3-10">[answer]</a></p>
+<pre class="answer" id="answer-3-10"><code>Person_Stats :: struct {
+	health: int,
+	age: int,
+}
+
+Person :: struct {
+	stats: Person_Stats,
+	name: string,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">11. <strong>Code:</strong> Create a zero-initialized <code>Person</code>. <a href="#answer-3-11" class="answer-link" data-target="answer-3-11">[answer]</a></p>
+<pre class="answer" id="answer-3-11"><code>p: Person</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">12. <strong>Concept:</strong> Where does the memory for <code>stats</code> live inside <code>Person</code>? <a href="#answer-3-12" class="answer-link" data-target="answer-3-12">[answer]</a></p>
+<pre class="answer" id="answer-3-12"><code>The memory for `stats` lives directly inside the `Person` struct.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">13. <strong>Code:</strong> Show the <code>size_of</code> example for getting the size of a type. <a href="#answer-3-13" class="answer-link" data-target="answer-3-13">[answer]</a></p>
+<pre class="answer" id="answer-3-13"><code>size_of(Some_Type)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">14. <strong>Code:</strong> Initialize a nested <code>Person</code> value with <code>stats.health</code> and <code>name</code>. <a href="#answer-3-14" class="answer-link" data-target="answer-3-14">[answer]</a></p>
+<pre class="answer" id="answer-3-14"><code>p := Person {
+	stats = {
+		health = 7,
+	},
+	name = &quot;Bob&quot;,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">15. <strong>Code:</strong> Fetch and set nested struct fields using <code>.</code>. <a href="#answer-3-15" class="answer-link" data-target="answer-3-15">[answer]</a></p>
+<pre class="answer" id="answer-3-15"><code>p := Person {
+	stats = {
+		health = 7,
+	},
+	name = &quot;Bob&quot;,
+}
+
+p.name = &quot;Bobinski&quot;
+p.stats.age = 36
+bobinskis_health := p.stats.health</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">16. <strong>Code:</strong> Redefine <code>Person</code> using <code>using stats: Person_Stats</code>. <a href="#answer-3-16" class="answer-link" data-target="answer-3-16">[answer]</a></p>
+<pre class="answer" id="answer-3-16"><code>Person_Stats :: struct {
+	health: int,
+	age: int,
+}
+
+Person :: struct {
+	using stats: Person_Stats,
+	name: string,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">17. <strong>Code:</strong> Use fields of <code>stats</code> directly on a <code>Person</code> object. <a href="#answer-3-17" class="answer-link" data-target="answer-3-17">[answer]</a></p>
+<pre class="answer" id="answer-3-17"><code>p := Person {
+	health = 20
+}
+p.age = 70
+
+hs := p.health</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">18. <strong>Concept:</strong> What does <code>using</code> allow in the <code>Person</code> example? <a href="#answer-3-18" class="answer-link" data-target="answer-3-18">[answer]</a></p>
+<pre class="answer" id="answer-3-18"><code>It allows fields inside `stats` to be accessed directly on `p`, such as `p.age` or `p.health`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">19. <strong>Code:</strong> Define an <code>Entity</code> struct with an id and 2D position. <a href="#answer-3-19" class="answer-link" data-target="answer-3-19">[answer]</a></p>
+<pre class="answer" id="answer-3-19"><code>Entity :: struct {
+	id: int,
+	position: [2]f32,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">20. <strong>Code:</strong> Define a <code>Player</code> struct that uses <code>Entity</code> as a parent-like field. <a href="#answer-3-20" class="answer-link" data-target="answer-3-20">[answer]</a></p>
+<pre class="answer" id="answer-3-20"><code>Player :: struct {
+	using entity: Entity,
+	can_jump: bool,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">21. <strong>Code:</strong> Define <code>Player</code> as a type alias of <code>Entity</code>. <a href="#answer-3-21" class="answer-link" data-target="answer-3-21">[answer]</a></p>
+<pre class="answer" id="answer-3-21"><code>Player :: Entity</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">22. <strong>Code:</strong> Create a <code>Player</code> and print its position. <a href="#answer-3-22" class="answer-link" data-target="answer-3-22">[answer]</a></p>
+<pre class="answer" id="answer-3-22"><code>p := Player {
+	id = 7,
+	position = {5, 2},
+	can_jump = true,
+}
+
+fmt.println(p.position) // [5, 2]</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">23. <strong>Code:</strong> Pass a <code>Player</code> into a procedure that expects an <code>Entity</code>. <a href="#answer-3-23" class="answer-link" data-target="answer-3-23">[answer]</a></p>
+<pre class="answer" id="answer-3-23"><code>p := Player {
+	id = 7,
+	position = {5, 2},
+	can_jump = true,
+}
+
+print_position :: proc(e: Entity) {
+	fmt.println(e.position) // [5, 2]
+}
+
+print_position(p)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">24. <strong>Concept:</strong> Why can <code>print_position(p)</code> work even though <code>p</code> is a <code>Player</code>? <a href="#answer-3-24" class="answer-link" data-target="answer-3-24">[answer]</a></p>
+<pre class="answer" id="answer-3-24"><code>Because `using entity: Entity` lets the embedded `Entity` field be implicitly sent along.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">25. <strong>Concept:</strong> Does Odin have classes or methods? <a href="#answer-3-25" class="answer-link" data-target="answer-3-25">[answer]</a></p>
+<pre class="answer" id="answer-3-25"><code>No. Odin has structs and separate procedures, not classes or methods.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">26. <strong>Code:</strong> Store a procedure inside a struct using <code>My_Interface</code>. <a href="#answer-3-26" class="answer-link" data-target="answer-3-26">[answer]</a></p>
+<pre class="answer" id="answer-3-26"><code>My_Interface :: struct {
+	required_name_length: int,
+	is_valid_name: proc(My_Interface, string) -&gt; bool,
+}
+
+my_proc :: proc(i: My_Interface, name: string) -&gt; bool {
+	return i.required_name_length == len(name)
+}
+
+my_interface := My_Interface {
+	required_name_length = 5,
+	is_valid_name = my_proc,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">27. <strong>Concept:</strong> Why does the author not recommend using that pattern to implement methods? <a href="#answer-3-27" class="answer-link" data-target="answer-3-27">[answer]</a></p>
+<pre class="answer" id="answer-3-27"><code>It makes code more complicated. The author recommends using structs to store data and separate procedures to process data.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">28. <strong>Code:</strong> Define the <code>Computer_Type</code> enum. <a href="#answer-3-28" class="answer-link" data-target="answer-3-28">[answer]</a></p>
+<pre class="answer" id="answer-3-28"><code>Computer_Type :: enum {
+	Laptop,    // value 0
+	Desktop,   // value 1
+	Mainframe, // value 2
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">29. <strong>Concept:</strong> What are enum members represented as underneath? <a href="#answer-3-29" class="answer-link" data-target="answer-3-29">[answer]</a></p>
+<pre class="answer" id="answer-3-29"><code>They are named numbers.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">30. <strong>Code:</strong> Create a variable of type <code>Computer_Type</code>. <a href="#answer-3-30" class="answer-link" data-target="answer-3-30">[answer]</a></p>
+<pre class="answer" id="answer-3-30"><code>ct: Computer_Type</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">31. <strong>Code:</strong> Assign <code>.Mainframe</code> to <code>ct</code>. <a href="#answer-3-31" class="answer-link" data-target="answer-3-31">[answer]</a></p>
+<pre class="answer" id="answer-3-31"><code>ct = .Mainframe</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">32. <strong>Code:</strong> Show the fully qualified equivalent of <code>.Mainframe</code>. <a href="#answer-3-32" class="answer-link" data-target="answer-3-32">[answer]</a></p>
+<pre class="answer" id="answer-3-32"><code>ct = Computer_Type.Mainframe</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">33. <strong>Code:</strong> Use a <code>switch</code> statement with <code>Computer_Type</code>. <a href="#answer-3-33" class="answer-link" data-target="answer-3-33">[answer]</a></p>
+<pre class="answer" id="answer-3-33"><code>switch ct {
+case .Laptop:
+	fmt.println(&quot;It&#x27;s a laptop&quot;)
+
+case .Desktop:
+	fmt.println(&quot;It&#x27;s a desktop&quot;)
+
+case .Mainframe:
+	fmt.println(&quot;Wow, a mainframe, in 2024?&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">34. <strong>Code:</strong> Use if-statements to do the same enum branching. <a href="#answer-3-34" class="answer-link" data-target="answer-3-34">[answer]</a></p>
+<pre class="answer" id="answer-3-34"><code>if ct == .Laptop {
+	fmt.println(&quot;It&#x27;s a laptop&quot;)
+} else if ct == .Desktop {
+	fmt.println(&quot;It&#x27;s a desktop&quot;)
+} else if ct == .Mainframe {
+	fmt.println(&quot;Wow, a mainframe, in 2024?&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">35. <strong>Concept:</strong> Why is <code>switch</code> often preferred over the equivalent if-chain? <a href="#answer-3-35" class="answer-link" data-target="answer-3-35">[answer]</a></p>
+<pre class="answer" id="answer-3-35"><code>It is less chatty and usually faster because the compiler can generate simpler code.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">36. <strong>Code:</strong> Use <code>#partial switch</code> with only some enum members. <a href="#answer-3-36" class="answer-link" data-target="answer-3-36">[answer]</a></p>
+<pre class="answer" id="answer-3-36"><code>#partial switch ct {
+case .Laptop:
+	fmt.println(&quot;It&#x27;s a laptop&quot;)
+
+case .Desktop:
+	fmt.println(&quot;It&#x27;s a desktop&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">37. <strong>Concept:</strong> Why does the author avoid <code>#partial</code> unless there is a good reason? <a href="#answer-3-37" class="answer-link" data-target="answer-3-37">[answer]</a></p>
+<pre class="answer" id="answer-3-37"><code>Avoiding `#partial` gives a compile error when new enum members are added, making it easier to update all switches.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">38. <strong>Code:</strong> Define an enum where <code>Laptop</code> starts at <code>1</code>. <a href="#answer-3-38" class="answer-link" data-target="answer-3-38">[answer]</a></p>
+<pre class="answer" id="answer-3-38"><code>Computer_Type :: enum {
+	Laptop = 1, // value 1
+	Desktop,    // value 2
+	Mainframe,  // value 3
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">39. <strong>Concept:</strong> What problem can happen when an enum starts at <code>1</code> instead of <code>0</code>? <a href="#answer-3-39" class="answer-link" data-target="answer-3-39">[answer]</a></p>
+<pre class="answer" id="answer-3-39"><code>A zero-initialized value may become invalid because `0` is not represented by any member.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">40. <strong>Code:</strong> Define an enum where all members have explicit values. <a href="#answer-3-40" class="answer-link" data-target="answer-3-40">[answer]</a></p>
+<pre class="answer" id="answer-3-40"><code>Computer_Type :: enum {
+	Laptop = 1, 
+	Desktop = 2, 
+	Mainframe = 7, 
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">41. <strong>Code:</strong> Define an enum where numbering resumes after an explicit value. <a href="#answer-3-41" class="answer-link" data-target="answer-3-41">[answer]</a></p>
+<pre class="answer" id="answer-3-41"><code>Computer_Type :: enum {
+	Laptop = 0,    // value 0 
+	Desktop,       // value 1
+	Mainframe = 5, // value 5
+	Broken,        // value 6
+	Gamer_Rig,     // value 7
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">42. <strong>Code:</strong> Define an enum with <code>u8</code> as its backing type. <a href="#answer-3-42" class="answer-link" data-target="answer-3-42">[answer]</a></p>
+<pre class="answer" id="answer-3-42"><code>Animal_Type :: enum u8 {
+	Cat,
+	Rabbit,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">43. <strong>Concept:</strong> When might you choose a custom enum backing type? <a href="#answer-3-43" class="answer-link" data-target="answer-3-43">[answer]</a></p>
+<pre class="answer" id="answer-3-43"><code>When binding to libraries written in other languages where enum size must match what the library expects.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">44. <strong>Code:</strong> Cast an enum to <code>int</code> before comparing it with an integer. <a href="#answer-3-44" class="answer-link" data-target="answer-3-44">[answer]</a></p>
+<pre class="answer" id="answer-3-44"><code>if int(some_enum) == 5 { /* do stuff */ }</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">45. <strong>Code:</strong> Define <code>My_Union</code>, <code>Person_Data</code>, and initialize <code>val</code> with an <code>int</code>. <a href="#answer-3-45" class="answer-link" data-target="answer-3-45">[answer]</a></p>
+<pre class="answer" id="answer-3-45"><code>My_Union :: union {
+	f32,
+	int,
+	Person_Data,
+}
+
+Person_Data :: struct {
+	health: int,
+	age: int,
+}
+
+val: My_Union = int(12)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">46. <strong>Concept:</strong> What can a union store that an enum alone cannot? <a href="#answer-3-46" class="answer-link" data-target="answer-3-46">[answer]</a></p>
+<pre class="answer" id="answer-3-46"><code>A union can store both what variant something is and the data associated with that variant.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">47. <strong>Code:</strong> Assign a <code>Person_Data</code> variant to <code>val</code>. <a href="#answer-3-47" class="answer-link" data-target="answer-3-47">[answer]</a></p>
+<pre class="answer" id="answer-3-47"><code>val = Person_Data {
+	health = 76,
+	age = 14,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">48. <strong>Code:</strong> Show the invalid union assignment that skips the variant type name. <a href="#answer-3-48" class="answer-link" data-target="answer-3-48">[answer]</a></p>
+<pre class="answer" id="answer-3-48"><code>val = { health = 76, age = 14 }</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">49. <strong>Concept:</strong> Why must <code>Person_Data</code> be written when assigning that variant to <code>val</code>? <a href="#answer-3-49" class="answer-link" data-target="answer-3-49">[answer]</a></p>
+<pre class="answer" id="answer-3-49"><code>Because skipping the type name would be ambiguous for a union.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">50. <strong>Code:</strong> Print the size of <code>My_Union</code>. <a href="#answer-3-50" class="answer-link" data-target="answer-3-50">[answer]</a></p>
+<pre class="answer" id="answer-3-50"><code>fmt.println(size_of(My_Union)) // 24</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">51. <strong>Code:</strong> Switch on the current variant of a union. <a href="#answer-3-51" class="answer-link" data-target="answer-3-51">[answer]</a></p>
+<pre class="answer" id="answer-3-51"><code>switch v in val {
+case int:
+	// You can use v, it is of type int.
+
+case f32:
+	// You can use v, it is of type f32.
+
+case Person_Data:
+	// You can use v, it is of type
+	// Person_Data. You can use v to access
+	// the fields of Person_Data:
+	fmt.println(v.age)
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">52. <strong>Concept:</strong> How is switching on a union different from switching on an enum? <a href="#answer-3-52" class="answer-link" data-target="answer-3-52">[answer]</a></p>
+<pre class="answer" id="answer-3-52"><code>A union switch uses `switch v in val` and the cases are variant type names.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">53. <strong>Code:</strong> Make the union switch value modifiable with <code>&amp;v</code>. <a href="#answer-3-53" class="answer-link" data-target="answer-3-53">[answer]</a></p>
+<pre class="answer" id="answer-3-53"><code>switch &amp;v in val {
+case int:
+	v = 7
+
+case f32:
+	v = 42
+
+case Person_Data:
+	v.age = 7
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">54. <strong>Code:</strong> Check whether a union currently holds an <code>f32</code> variant. <a href="#answer-3-54" class="answer-link" data-target="answer-3-54">[answer]</a></p>
+<pre class="answer" id="answer-3-54"><code>f32_val, f32_val_ok := val.(f32)
+
+if f32_val_ok {
+	// f32_val is OK to use in here.
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">55. <strong>Code:</strong> Use the special if-statement form for checking an <code>f32</code> union variant. <a href="#answer-3-55" class="answer-link" data-target="answer-3-55">[answer]</a></p>
+<pre class="answer" id="answer-3-55"><code>if f32_val, f32_val_ok := val.(f32); f32_val_ok {
+	// f32_val is OK to use in here.
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">56. <strong>Code:</strong> Assert that the union holds <code>f32</code> by skipping the <code>ok</code> value. <a href="#answer-3-56" class="answer-link" data-target="answer-3-56">[answer]</a></p>
+<pre class="answer" id="answer-3-56"><code>f32_val := val.(f32)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">57. <strong>Code:</strong> Modify an <code>f32</code> union variant through a pointer. <a href="#answer-3-57" class="answer-link" data-target="answer-3-57">[answer]</a></p>
+<pre class="answer" id="answer-3-57"><code>if f32_val, ok := &amp;val.(f32); ok {
+	f32_val^ = 7
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">58. <strong>Code:</strong> Define a nullable <code>Shape</code> union and create <code>shape</code>. <a href="#answer-3-58" class="answer-link" data-target="answer-3-58">[answer]</a></p>
+<pre class="answer" id="answer-3-58"><code>Shape :: union {
+	Shape_Circle,
+	Shape_Square,
+}
+
+Shape_Circle :: struct {
+	radius: f32,
+}
+
+Shape_Square :: struct {
+	width: f32,
+}
+
+// Zero value: nil
+shape: Shape</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">59. <strong>Concept:</strong> What is the zero value of that nullable union? <a href="#answer-3-59" class="answer-link" data-target="answer-3-59">[answer]</a></p>
+<pre class="answer" id="answer-3-59"><code>`nil`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">60. <strong>Code:</strong> Define a <code>Shape</code> enum and create <code>shape</code>. <a href="#answer-3-60" class="answer-link" data-target="answer-3-60">[answer]</a></p>
+<pre class="answer" id="answer-3-60"><code>Shape :: enum {
+	Circle,
+	Square,
+}
+
+// Zero value: Shape.Circle
+shape: Shape</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">61. <strong>Concept:</strong> What is the zero value of that enum? <a href="#answer-3-61" class="answer-link" data-target="answer-3-61">[answer]</a></p>
+<pre class="answer" id="answer-3-61"><code>`Shape.Circle`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">62. <strong>Code:</strong> Define a <code>Shape</code> union with <code>#no_nil</code>. <a href="#answer-3-62" class="answer-link" data-target="answer-3-62">[answer]</a></p>
+<pre class="answer" id="answer-3-62"><code>Shape :: union #no_nil {
+	Shape_Circle,
+	Shape_Square,
+}
+
+Shape_Circle :: struct {
+	radius: f32,
+}
+
+Shape_Square :: struct {
+	width: f32,
+}
+
+// Zero value:
+// Variant Shape_Circle
+shape: Shape</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">63. <strong>Concept:</strong> What does <code>#no_nil</code> change about the union&#x27;s zero value? <a href="#answer-3-63" class="answer-link" data-target="answer-3-63">[answer]</a></p>
+<pre class="answer" id="answer-3-63"><code>The union cannot be `nil`; its zero value becomes the first variant.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">64. <strong>Concept:</strong> What does a union tag track? <a href="#answer-3-64" class="answer-link" data-target="answer-3-64">[answer]</a></p>
+<pre class="answer" id="answer-3-64"><code>It tracks which variant the union currently holds.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">65. <strong>Concept:</strong> What are the tag values for the nullable <code>Shape</code> union? <a href="#answer-3-65" class="answer-link" data-target="answer-3-65">[answer]</a></p>
+<pre class="answer" id="answer-3-65"><code>0 -&gt; nil
+1 -&gt; Shape_Circle
+2 -&gt; Shape_Square</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">66. <strong>Concept:</strong> What are the tag values for the <code>#no_nil</code> <code>Shape</code> union? <a href="#answer-3-66" class="answer-link" data-target="answer-3-66">[answer]</a></p>
+<pre class="answer" id="answer-3-66"><code>0 -&gt; Shape_Circle
+1 -&gt; Shape_Square</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">67. <strong>Code:</strong> Show the generic <code>Maybe</code> union definition. <a href="#answer-3-67" class="answer-link" data-target="answer-3-67">[answer]</a></p>
+<pre class="answer" id="answer-3-67"><code>Maybe :: union($T: typeid) {
+	T,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">68. <strong>Code:</strong> Declare a <code>Maybe(int)</code> value. <a href="#answer-3-68" class="answer-link" data-target="answer-3-68">[answer]</a></p>
+<pre class="answer" id="answer-3-68"><code>time: Maybe(int)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">69. <strong>Code:</strong> Assign and print a <code>Maybe(int)</code> value. <a href="#answer-3-69" class="answer-link" data-target="answer-3-69">[answer]</a></p>
+<pre class="answer" id="answer-3-69"><code>time: Maybe(int)
+fmt.println(time) // nil
+time = 5
+fmt.println(time) // 5</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">70. <strong>Code:</strong> Check whether a <code>Maybe(int)</code> has a value. <a href="#answer-3-70" class="answer-link" data-target="answer-3-70">[answer]</a></p>
+<pre class="answer" id="answer-3-70"><code>if time_val, time_val_ok := time.?; time_val_ok {
+	// Use time_val.
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">71. <strong>Code:</strong> Assert that a <code>Maybe(int)</code> has a value by skipping the <code>ok</code> value. <a href="#answer-3-71" class="answer-link" data-target="answer-3-71">[answer]</a></p>
+<pre class="answer" id="answer-3-71"><code>t := time.?</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">72. <strong>Code:</strong> Define a raw union using <code>struct #raw_union</code>. <a href="#answer-3-72" class="answer-link" data-target="answer-3-72">[answer]</a></p>
+<pre class="answer" id="answer-3-72"><code>My_Raw_Union :: struct #raw_union {
+	number: int,
+	struct_val: My_Struct,
+}
+
+a_raw_union: My_Raw_Union</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">73. <strong>Concept:</strong> What does <code>#raw_union</code> do? <a href="#answer-3-73" class="answer-link" data-target="answer-3-73">[answer]</a></p>
+<pre class="answer" id="answer-3-73"><code>It makes all fields inside the struct start at the same point in memory, so they overlap.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">74. <strong>Code:</strong> Define the initial “mega struct” <code>Entity</code> example. <a href="#answer-3-74" class="answer-link" data-target="answer-3-74">[answer]</a></p>
+<pre class="answer" id="answer-3-74"><code>Entity :: struct {
+	position: [2]f32,
+	texture: Texture,
+	can_jump: bool,
+	time_in_space: f32,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">75. <strong>Code:</strong> Refactor the entity fields into union variants. <a href="#answer-3-75" class="answer-link" data-target="answer-3-75">[answer]</a></p>
+<pre class="answer" id="answer-3-75"><code>Entity :: struct {
+	position: [2]f32,
+	texture: Texture,
+	variant: Entity_Variant,
+}
+
+Entity_Player :: struct {
+	can_jump: bool,
+}
+
+Entity_Rocket :: struct {
+	time_in_space: f32,
+}
+
+Entity_Variant :: union {
+	Entity_Player,
+	Entity_Rocket,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">76. <strong>Code:</strong> Create a <code>player_entity</code> with an <code>Entity_Player</code> variant. <a href="#answer-3-76" class="answer-link" data-target="answer-3-76">[answer]</a></p>
+<pre class="answer" id="answer-3-76"><code>player_entity := Entity {
+	position = starting_position,
+	texture = player_graphics,
+	variant = Entity_Player {
+		can_jump = true,
+	}
+}
+
+---</code></pre>
+</div>
+</section>
+<section id="chapter-6-pointers">
+<h2>Chapter 6: Pointers</h2>
+<div class="problem">
+<p class="problem-text">1. <strong>Concept:</strong> What is a pointer? <a href="#answer-4-1" class="answer-link" data-target="answer-4-1">[answer]</a></p>
+<pre class="answer" id="answer-4-1"><code>A pointer is a reference that contains the memory address of something else.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">2. <strong>Code:</strong> Write the full <code>increment_number</code> example that modifies an integer through a pointer. <a href="#answer-4-2" class="answer-link" data-target="answer-4-2">[answer]</a></p>
+<pre class="answer" id="answer-4-2"><code>increment_number :: proc(num: ^int) {
+	num^ += 1
+}
+
+number := 7
+number_pointer := &amp;number
+increment_number(number_pointer)
+fmt.println(number) // 8</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">3. <strong>Code:</strong> Fetch the address of <code>number</code> into <code>number_pointer</code>. <a href="#answer-4-3" class="answer-link" data-target="answer-4-3">[answer]</a></p>
+<pre class="answer" id="answer-4-3"><code>number_pointer := &amp;number</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">4. <strong>Code:</strong> Call <code>increment_number</code> without first storing the pointer in a separate variable. <a href="#answer-4-4" class="answer-link" data-target="answer-4-4">[answer]</a></p>
+<pre class="answer" id="answer-4-4"><code>increment_number(&amp;number)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">5. <strong>Concept:</strong> What is the type of <code>number_pointer</code>? <a href="#answer-4-5" class="answer-link" data-target="answer-4-5">[answer]</a></p>
+<pre class="answer" id="answer-4-5"><code>`^int`, meaning pointer to integer.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">6. <strong>Code:</strong> Print a pointer as an integer number. <a href="#answer-4-6" class="answer-link" data-target="answer-4-6">[answer]</a></p>
+<pre class="answer" id="answer-4-6"><code>fmt.printfln(&quot;%i&quot;, some_pointer)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">7. <strong>Code:</strong> Write the shorter <code>increment_number</code> procedure shown later in the explanation. <a href="#answer-4-7" class="answer-link" data-target="answer-4-7">[answer]</a></p>
+<pre class="answer" id="answer-4-7"><code>increment_number :: proc(num: ^int) {
+	num^ += 1
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">8. <strong>Code:</strong> Expand <code>num^ += 1</code> into the equivalent assignment. <a href="#answer-4-8" class="answer-link" data-target="answer-4-8">[answer]</a></p>
+<pre class="answer" id="answer-4-8"><code>num^ = num^ + 1</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">9. <strong>Concept:</strong> What does <code>^int</code> mean when the <code>^</code> is to the left of the type name? <a href="#answer-4-9" class="answer-link" data-target="answer-4-9">[answer]</a></p>
+<pre class="answer" id="answer-4-9"><code>It denotes a pointer type, here “pointer to integer.”</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">10. <strong>Concept:</strong> What does <code>num^</code> mean when the <code>^</code> is to the right of a pointer variable? <a href="#answer-4-10" class="answer-link" data-target="answer-4-10">[answer]</a></p>
+<pre class="answer" id="answer-4-10"><code>It dereferences the pointer, reading or writing the value at the address stored in the pointer.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">11. <strong>Code:</strong> Declare a pointer to an integer without assigning a value. <a href="#answer-4-11" class="answer-link" data-target="answer-4-11">[answer]</a></p>
+<pre class="answer" id="answer-4-11"><code>my_pointer: ^int</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">12. <strong>Concept:</strong> What is the zero value of a pointer? <a href="#answer-4-12" class="answer-link" data-target="answer-4-12">[answer]</a></p>
+<pre class="answer" id="answer-4-12"><code>`nil`, meaning no address.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">13. <strong>Code:</strong> Show the nil pointer crash example. <a href="#answer-4-13" class="answer-link" data-target="answer-4-13">[answer]</a></p>
+<pre class="answer" id="answer-4-13"><code>my_pointer: ^int
+my_pointer^ = 10</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">14. <strong>Code:</strong> Protect <code>increment_number</code> by checking <code>num != nil</code>. <a href="#answer-4-14" class="answer-link" data-target="answer-4-14">[answer]</a></p>
+<pre class="answer" id="answer-4-14"><code>increment_number :: proc(num: ^int) {
+	if num != nil {
+		num^ += 1
+	}
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">15. <strong>Code:</strong> Protect <code>increment_number</code> with an early return if <code>num == nil</code>. <a href="#answer-4-15" class="answer-link" data-target="answer-4-15">[answer]</a></p>
+<pre class="answer" id="answer-4-15"><code>increment_number :: proc(num: ^int) {
+	if num == nil {
+		return
+	}
+
+	num^ += 1
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">16. <strong>Code:</strong> Define the <code>Cat</code> struct. <a href="#answer-4-16" class="answer-link" data-target="answer-4-16">[answer]</a></p>
+<pre class="answer" id="answer-4-16"><code>Cat :: struct {
+	name: string,
+	age: int,
+	color: Cat_Color,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">17. <strong>Code:</strong> Define the <code>Cat_Color</code> enum. <a href="#answer-4-17" class="answer-link" data-target="answer-4-17">[answer]</a></p>
+<pre class="answer" id="answer-4-17"><code>Cat_Color :: enum {
+	Black,
+	White,
+	Orange,
+	Tabby,
+	Calico,
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">18. <strong>Code:</strong> Write the full birthday example that increments a cat&#x27;s age through a pointer. <a href="#answer-4-18" class="answer-link" data-target="answer-4-18">[answer]</a></p>
+<pre class="answer" id="answer-4-18"><code>process_cat_birthday :: proc(cat: ^Cat) {
+	if cat == nil {
+		return
+	}
+
+	cat.age += 1
+}
+
+my_cat := Cat {
+	name = &quot;Patches&quot;,
+	age = 7,
+	color = .Calico,
+}
+
+process_cat_birthday(&amp;my_cat)
+
+// Hooray, Patches is now 8 years old!
+fmt.printfln(&quot;Hooray, %v is now %v years old!&quot;, my_cat.name, my_cat.age)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">19. <strong>Concept:</strong> Why does <code>process_cat_birthday(&amp;my_cat)</code> modify <code>my_cat</code> directly? <a href="#answer-4-19" class="answer-link" data-target="answer-4-19">[answer]</a></p>
+<pre class="answer" id="answer-4-19"><code>Because `&amp;my_cat` passes the address of `my_cat`, so the procedure can modify the original struct through the pointer.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">20. <strong>Code:</strong> Show the repeated call to <code>process_cat_birthday(&amp;my_cat)</code>. <a href="#answer-4-20" class="answer-link" data-target="answer-4-20">[answer]</a></p>
+<pre class="answer" id="answer-4-20"><code>process_cat_birthday(&amp;my_cat)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">21. <strong>Code:</strong> Show the field update inside <code>process_cat_birthday</code>. <a href="#answer-4-21" class="answer-link" data-target="answer-4-21">[answer]</a></p>
+<pre class="answer" id="answer-4-21"><code>cat.age += 1</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">22. <strong>Code:</strong> Show the explicit dereference version of the same field update. <a href="#answer-4-22" class="answer-link" data-target="answer-4-22">[answer]</a></p>
+<pre class="answer" id="answer-4-22"><code>cat^.age += 1</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">23. <strong>Concept:</strong> Why can <code>cat.age</code> work even though <code>cat</code> is a pointer? <a href="#answer-4-23" class="answer-link" data-target="answer-4-23">[answer]</a></p>
+<pre class="answer" id="answer-4-23"><code>When accessing a field through a pointer to a struct, Odin makes the `^` implicit.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">24. <strong>Code:</strong> Write <code>replace_cat</code>, which replaces the whole struct through a pointer. <a href="#answer-4-24" class="answer-link" data-target="answer-4-24">[answer]</a></p>
+<pre class="answer" id="answer-4-24"><code>replace_cat :: proc(cat: ^Cat) {
+	if cat == nil {
+		return
+	}
+
+	cat^ = {
+		name = &quot;Klucke&quot;,
+		age = 6,
+		color = .Tabby,
+	}
+}</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">25. <strong>Concept:</strong> Why is <code>cat^ = { ... }</code> needed instead of <code>cat = { ... }</code>? <a href="#answer-4-25" class="answer-link" data-target="answer-4-25">[answer]</a></p>
+<pre class="answer" id="answer-4-25"><code>`cat = { ... }` would try to change the pointer itself. `cat^ = { ... }` changes the struct value that the pointer points to.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">26. <strong>Code:</strong> Copy a pointer, then write through the copy. <a href="#answer-4-26" class="answer-link" data-target="answer-4-26">[answer]</a></p>
+<pre class="answer" id="answer-4-26"><code>number := 7
+pointer1 := &amp;number
+pointer2 := pointer1
+pointer2^ = 10</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">27. <strong>Concept:</strong> What do <code>pointer1</code> and <code>pointer2</code> contain after <code>pointer2 := pointer1</code>? <a href="#answer-4-27" class="answer-link" data-target="answer-4-27">[answer]</a></p>
+<pre class="answer" id="answer-4-27"><code>They contain the same memory address, pointing to `number`.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">28. <strong>Code:</strong> Print the addresses of <code>pointer1</code> and <code>pointer2</code> themselves. <a href="#answer-4-28" class="answer-link" data-target="answer-4-28">[answer]</a></p>
+<pre class="answer" id="answer-4-28"><code>fmt.println(&amp;pointer1)
+fmt.println(&amp;pointer2)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">29. <strong>Code:</strong> Give the example hexadecimal output for those addresses. <a href="#answer-4-29" class="answer-link" data-target="answer-4-29">[answer]</a></p>
+<pre class="answer" id="answer-4-29"><code>0x445C6FF868
+0x445C6FF860</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">30. <strong>Code:</strong> Print the address of <code>pointer1</code> as an integer. <a href="#answer-4-30" class="answer-link" data-target="answer-4-30">[answer]</a></p>
+<pre class="answer" id="answer-4-30"><code>fmt.printfln(&quot;%i&quot;, &amp;pointer1)</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">31. <strong>Code:</strong> Show the read-through-pointer example. <a href="#answer-4-31" class="answer-link" data-target="answer-4-31">[answer]</a></p>
+<pre class="answer" id="answer-4-31"><code>// Read a value through a pointer
+read_value := some_pointer^</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">32. <strong>Code:</strong> Show the write-through-pointer example. <a href="#answer-4-32" class="answer-link" data-target="answer-4-32">[answer]</a></p>
+<pre class="answer" id="answer-4-32"><code>// Write a value through a pointer
+some_pointer^ = 10</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">33. <strong>Code:</strong> Create a pointer to the tenth element of an array. <a href="#answer-4-33" class="answer-link" data-target="answer-4-33">[answer]</a></p>
+<pre class="answer" id="answer-4-33"><code>array: [20]int
+element_pointer := &amp;array[10]</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">34. <strong>Code:</strong> Show the misleading copy version that does not point to the original array element. <a href="#answer-4-34" class="answer-link" data-target="answer-4-34">[answer]</a></p>
+<pre class="answer" id="answer-4-34"><code>array: [20]int
+element := array[10]
+element_pointer := &amp;element</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">35. <strong>Concept:</strong> Why does <code>&amp;array[10]</code> point to the original array element? <a href="#answer-4-35" class="answer-link" data-target="answer-4-35">[answer]</a></p>
+<pre class="answer" id="answer-4-35"><code>Because `array[10]` is an addressable that still refers to the tenth element of the array.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">36. <strong>Code:</strong> Create a number and pointer to that number. <a href="#answer-4-36" class="answer-link" data-target="answer-4-36">[answer]</a></p>
+<pre class="answer" id="answer-4-36"><code>number: int
+number_pointer := &amp;number</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">37. <strong>Code:</strong> Assign to <code>number</code> through <code>number_pointer</code>. <a href="#answer-4-37" class="answer-link" data-target="answer-4-37">[answer]</a></p>
+<pre class="answer" id="answer-4-37"><code>number_pointer^ = 10</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">38. <strong>Code:</strong> Read from <code>number</code> through <code>number_pointer</code>. <a href="#answer-4-38" class="answer-link" data-target="answer-4-38">[answer]</a></p>
+<pre class="answer" id="answer-4-38"><code>another_number := number_pointer^</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">39. <strong>Concept:</strong> What is an addressable? <a href="#answer-4-39" class="answer-link" data-target="answer-4-39">[answer]</a></p>
+<pre class="answer" id="answer-4-39"><code>An addressable is something the compiler can locate in memory, read from, and assign to.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">40. <strong>Code:</strong> Show the invalid assignment to a constant number. <a href="#answer-4-40" class="answer-link" data-target="answer-4-40">[answer]</a></p>
+<pre class="answer" id="answer-4-40"><code>7 = some_variable</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">41. <strong>Concept:</strong> Why does that assignment not make sense? <a href="#answer-4-41" class="answer-link" data-target="answer-4-41">[answer]</a></p>
+<pre class="answer" id="answer-4-41"><code>A constant like `7` is not addressable and cannot be assigned to.</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">42. <strong>Code:</strong> Repeat the pointer-to-array-element example. <a href="#answer-4-42" class="answer-link" data-target="answer-4-42">[answer]</a></p>
+<pre class="answer" id="answer-4-42"><code>array: [20]int
+element_pointer := &amp;array[10]</code></pre>
+</div>
+<div class="problem">
+<p class="problem-text">43. <strong>Code:</strong> Take the address of a dereferenced pointer and get the original pointer back. <a href="#answer-4-43" class="answer-link" data-target="answer-4-43">[answer]</a></p>
+<pre class="answer" id="answer-4-43"><code>number := 7
+number_pointer := &amp;number
+number_pointer_again := &amp;number_pointer^
+// Both these pointers refer to `number`!</code></pre>
+</div>
+</section>
+<footer>
+  <p>Styled with a simple, narrow layout inspired by the attached HTML file.</p>
+</footer>
+</main>
+<script>
+  document.querySelectorAll('.answer-link').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      var target = document.getElementById(link.dataset.target);
+      if (!target) return;
+      var isHidden = target.style.display === '' || target.style.display === 'none';
+      target.style.display = isHidden ? 'block' : 'none';
+      link.textContent = isHidden ? '[hide answer]' : '[answer]';
+    });
+  });
+</script>
+</body>
+</html>
