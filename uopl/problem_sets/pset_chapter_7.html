@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odin Chapter 7 Problem Set</title>
+<style>
+html {
+  scrollbar-gutter: stable;
+}
+body {
+  line-height: 1.4;
+  font-size: 16px;
+  padding: 0 10px;
+  margin: 50px auto;
+  max-width: 650px;
+  color: #111;
+  background: #fff;
+}
+#maincontent {
+  max-width: 42em;
+  margin: 15px auto;
+}
+h1, h2, h3 {
+  line-height: 1.2;
+}
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.2rem;
+}
+h2 {
+  margin-top: 2.2rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+a {
+  color: inherit;
+}
+.problem {
+  margin: 1.1rem 0;
+}
+.problem p {
+  margin-bottom: 0.35rem;
+}
+.answer-link {
+  margin-left: 0.35rem;
+  white-space: nowrap;
+}
+.answer {
+  display: none;
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+  overflow-x: auto;
+  margin: 0.35rem 0 0.8rem 0;
+}
+.answer code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.92rem;
+}
+.meta {
+  color: #555;
+}
+.toc {
+  border: 1px solid #ddd;
+  padding: 0.8rem 1rem;
+  margin: 1rem 0 2rem;
+}
+.toc ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+}
+footer {
+  margin: 60px auto 30px;
+  padding: 18px 10px 0;
+  border-top: 1px solid #ddd;
+  color: #555;
+}
+
+</style>
+<script>
+function toggleAnswer(id, link) {
+  const el = document.getElementById(id);
+  const isHidden = el.style.display === "" || el.style.display === "none";
+  el.style.display = isHidden ? "block" : "none";
+  link.textContent = isHidden ? "[hide answer]" : "[answer]";
+  return false;
+}
+</script>
+</head>
+<body>
+<main><div id="maincontent">
+<h1><strong>Odin Chapter 7 Problem Set</strong></h1>
+<p class="meta">Procedures and scopes. 125 problems. Click <code>[answer]</code> to reveal the answer below each question.</p>
+<div class="toc"><strong>Sections</strong><ul>
+<li><a href="#section-7">7 Procedures and scopes overview</a></li>
+<li><a href="#section-7.1">7.1 Default parameter values and named arguments</a></li>
+<li><a href="#section-7.1.1">7.1.1 Allocator parameter with default value</a></li>
+<li><a href="#section-7.2">7.2 Multiple return values</a></li>
+<li><a href="#section-7.3">7.3 Named return values</a></li>
+<li><a href="#section-7.4">7.4 Nested procedures and captured variables</a></li>
+<li><a href="#section-7.5">7.5 Parameters are always immutable</a></li>
+<li><a href="#section-7.6">7.6 Don&#x27;t use pointer parameters for the sake of optimization</a></li>
+<li><a href="#section-7.6.1">7.6.1 Pointer and immutable reference aliasing</a></li>
+<li><a href="#section-7.7">7.7 Explicit overloading</a></li>
+<li><a href="#section-7.8">7.8 Run procedures on startup and shutdown</a></li>
+<li><a href="#section-7.9">7.9 The scope and the stack</a></li>
+<li><a href="#section-7.10">7.10 Scopes within scopes</a></li>
+<li><a href="#section-7.11">7.11 defer: Making things happen at end of scope</a></li>
+<li><a href="#section-7.11.1">7.11.1 Don&#x27;t overuse defer</a></li>
+</ul></div>
+<h2 id="section-7">7 Procedures and scopes overview</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the procedure example that checks whether one integer is bigger than another. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-1', this)">[answer]</a></p>
+<pre id="answer-1" class="answer"><code>is_bigger_than :: proc(number: int, compare_to: int) -&gt; bool {
+	return number &gt; compare_to
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Call `is_bigger_than` with `5` and `2`, then store the return value. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-2', this)">[answer]</a></p>
+<pre id="answer-2" class="answer"><code>result := is_bigger_than(5, 2)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> In the example `is_bigger_than(5, 2)`, what are `number` and `compare_to`, and what are `5` and `2`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-3', this)">[answer]</a></p>
+<pre id="answer-3" class="answer"><code>number and compare_to are parameters.
+
+5 and 2 are arguments.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is the difference between a parameter and an argument? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-4', this)">[answer]</a></p>
+<pre id="answer-4" class="answer"><code>A parameter is what a procedure accepts, such as number: int or compare_to: int.
+
+An argument is the value sent into the procedure when calling it, such as 5 and 2 in is_bigger_than(5, 2).</code></pre>
+</div>
+<h2 id="section-7.1">7.1 Default parameter values and named arguments</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the `write_message` procedure that has a default label value of `&quot;Info&quot;`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-5', this)">[answer]</a></p>
+<pre id="answer-5" class="answer"><code>write_message :: proc(message: string, label: string = &quot;Info&quot;) {
+	if label != &quot;&quot; {
+		fmt.print(label)
+		fmt.print(&quot;: &quot;)
+	}
+
+	fmt.println(message)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Call `write_message` with only the message `&quot;Hellope!&quot;`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-6', this)">[answer]</a></p>
+<pre id="answer-6" class="answer"><code>write_message(&quot;Hellope!&quot;)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does `write_message(&quot;Hellope!&quot;)` print when the default label is used? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-7', this)">[answer]</a></p>
+<pre id="answer-7" class="answer"><code>Info: Hellope!</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Call `write_message` and replace the default label with `&quot;Very important info&quot;`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-8', this)">[answer]</a></p>
+<pre id="answer-8" class="answer"><code>write_message(&quot;Hellope!&quot;, &quot;Very important info&quot;)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What output does the call with `&quot;Very important info&quot;` produce? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-9', this)">[answer]</a></p>
+<pre id="answer-9" class="answer"><code>Very important info: Hellope!</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the parameter declaration that gives `label` the default value `&quot;Info&quot;`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-10', this)">[answer]</a></p>
+<pre id="answer-10" class="answer"><code>label: string = &quot;Info&quot;</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the shorter inferred form of the default parameter value for `label`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-11', this)">[answer]</a></p>
+<pre id="answer-11" class="answer"><code>label := &quot;Info&quot;</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does a default parameter value let you do when calling a procedure? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-12', this)">[answer]</a></p>
+<pre id="answer-12" class="answer"><code>It makes it possible to skip that parameter when calling the procedure.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the `my_proc` example with parameters `a`, `b`, and `c`, where `b` and `c` have default values. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-13', this)">[answer]</a></p>
+<pre id="answer-13" class="answer"><code>my_proc :: proc(a: int, b := 1, c := &quot;hello&quot;) {
+
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Call `my_proc` with `a = 7`, skip `b`, and set `c` to `&quot;bye bye&quot;`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-14', this)">[answer]</a></p>
+<pre id="answer-14" class="answer"><code>my_proc(7, c = &quot;bye bye&quot;)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> In `my_proc(7, c = &quot;bye bye&quot;)`, which values go into `a`, `b`, and `c`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-15', this)">[answer]</a></p>
+<pre id="answer-15" class="answer"><code>7 goes into a.
+
+b keeps its default value 1.
+
+&quot;bye bye&quot; goes into c.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Call `my_proc` using named arguments out of order. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-16', this)">[answer]</a></p>
+<pre id="answer-16" class="answer"><code>my_proc(c = &quot;bye bye&quot;, a = 7)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the example that does not compile because a positional argument comes after a named argument. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-17', this)">[answer]</a></p>
+<pre id="answer-17" class="answer"><code>my_proc(c = &quot;bye bye&quot;, 7)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What rule must positional and named arguments follow? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-18', this)">[answer]</a></p>
+<pre id="answer-18" class="answer"><code>All positional arguments must come before all named arguments.</code></pre>
+</div>
+<h2 id="section-7.1.1">7.1.1 Allocator parameter with default value</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the `clone` procedure example with default `allocator` and `loc` parameters. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-19', this)">[answer]</a></p>
+<pre id="answer-19" class="answer"><code>clone :: proc(s: []byte, allocator := context.allocator, loc := #caller_location) -&gt; []byte {
+	c := make([]byte, len(s), allocator, loc)
+	copy(c, s)
+	return c[:len(s)]
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Call `bytes.clone` with a single argument because the allocator has a default value. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-20', this)">[answer]</a></p>
+<pre id="answer-20" class="answer"><code>copy := bytes.clone(some_bytes)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the default allocator parameter from the `clone` example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-21', this)">[answer]</a></p>
+<pre id="answer-21" class="answer"><code>allocator := context.allocator</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the default source-location parameter from the `clone` example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-22', this)">[answer]</a></p>
+<pre id="answer-22" class="answer"><code>loc := #caller_location</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why is `allocator := context.allocator` a common pattern? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-23', this)">[answer]</a></p>
+<pre id="answer-23" class="answer"><code>It gives a sensible default, while making the user understand that they can provide their own allocator if they want.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is `#caller_location` used for in the core collection? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-24', this)">[answer]</a></p>
+<pre id="answer-24" class="answer"><code>It fetches the source code position of where the procedure was called, which helps give good error messages.</code></pre>
+</div>
+<h2 id="section-7.2">7.2 Multiple return values</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write `divide_and_double` with two return values: an `f32` result and a `bool` success value. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-25', this)">[answer]</a></p>
+<pre id="answer-25" class="answer"><code>divide_and_double :: proc(n: f32, d: f32) -&gt; (f32, bool) {
+	if d == 0 {
+		return 0, false
+	}
+
+	return (n/d)*2, true
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the return type list for two return values: `f32` and `bool`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-26', this)">[answer]</a></p>
+<pre id="answer-26" class="answer"><code>(f32, bool)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why are parentheses required around multiple return types? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-27', this)">[answer]</a></p>
+<pre id="answer-27" class="answer"><code>The parentheses are required because not having them would create ambiguities while the compiler is parsing the code.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does `divide_and_double` return when `d == 0`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-28', this)">[answer]</a></p>
+<pre id="answer-28" class="answer"><code>return 0, false</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does the second return value mean in `divide_and_double`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-29', this)">[answer]</a></p>
+<pre id="answer-29" class="answer"><code>false indicates there was an error.
+
+true indicates that everything went OK.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Store both return values from `divide_and_double(2, 4)` in new variables and print the result if `ok` is true. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-30', this)">[answer]</a></p>
+<pre id="answer-30" class="answer"><code>res, ok := divide_and_double(2, 4)
+
+if ok {
+	fmt.println(res)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Assign both return values to pre-existing variables. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-31', this)">[answer]</a></p>
+<pre id="answer-31" class="answer"><code>res, ok = divide_and_double(2, 4)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why does the pre-existing variable assignment use `=` instead of `:=`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-32', this)">[answer]</a></p>
+<pre id="answer-32" class="answer"><code>Use = when assigning to pre-existing variables.
+
+You cannot mix creating some new variables and re-using some old ones. Either all are new or all are pre-existing.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the example that completely skips handling the return values. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-33', this)">[answer]</a></p>
+<pre id="answer-33" class="answer"><code>divide_and_double(2, 4)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Add the attribute that requires callers to handle return values. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-34', this)">[answer]</a></p>
+<pre id="answer-34" class="answer"><code>@require_results
+divide_and_double :: proc(n: f32, d: f32) -&gt; (f32, bool) {
+	// ...
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the call that becomes an error when `@require_results` is used. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-35', this)">[answer]</a></p>
+<pre id="answer-35" class="answer"><code>divide_and_double(2, 4)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the invalid example that handles only one return value. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-36', this)">[answer]</a></p>
+<pre id="answer-36" class="answer"><code>res := divide_and_double(2, 4)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the example that keeps the first return value and explicitly throws away the second. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-37', this)">[answer]</a></p>
+<pre id="answer-37" class="answer"><code>res, _ := divide_and_double(2, 4)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the example that uses `_` to silence an unused `fmt` import. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-38', this)">[answer]</a></p>
+<pre id="answer-38" class="answer"><code>_ :: fmt</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the special `if` statement that keeps `res` and `ok` scoped inside the `if`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-39', this)">[answer]</a></p>
+<pre id="answer-39" class="answer"><code>if res, ok := divide_and_double(2, 4); ok {
+	fmt.println(res)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is a common Odin pattern for reporting simple errors from a procedure? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-40', this)">[answer]</a></p>
+<pre id="answer-40" class="answer"><code>Returning a bool in the last return value is a common way to report errors in Odin.</code></pre>
+</div>
+<h2 id="section-7.3">7.3 Named return values</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the named-return version of `divide_and_double`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-41', this)">[answer]</a></p>
+<pre id="answer-41" class="answer"><code>divide_and_double :: proc(n: f32, d: f32) -&gt; (res: f32, ok: bool) {
+	if d == 0 {
+		return
+	}
+
+	res = (n/d)*2
+	ok = true
+	return
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the named return value list from the example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-42', this)">[answer]</a></p>
+<pre id="answer-42" class="answer"><code>(res: f32, ok: bool)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the naked return used when `d == 0`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-43', this)">[answer]</a></p>
+<pre id="answer-43" class="answer"><code>if d == 0 {
+	return
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the old explicit return that the naked return replaces when `d == 0`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-44', this)">[answer]</a></p>
+<pre id="answer-44" class="answer"><code>if d == 0 {
+	return 0, false
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the assignment-based return path used when `d` is non-zero. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-45', this)">[answer]</a></p>
+<pre id="answer-45" class="answer"><code>res = (n/d)*2
+ok = true
+return</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the old explicit return for the non-zero case. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-46', this)">[answer]</a></p>
+<pre id="answer-46" class="answer"><code>return (n/d)*2, true</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is a naked return? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-47', this)">[answer]</a></p>
+<pre id="answer-47" class="answer"><code>A naked return is a return that does not specify what it is returning.
+
+It returns the named return values.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What values do `res` and `ok` have by default when `d == 0`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-48', this)">[answer]</a></p>
+<pre id="answer-48" class="answer"><code>res and ok are zero-initialized.
+
+res contains 0.
+
+ok contains false.</code></pre>
+</div>
+<h2 id="section-7.4">7.4 Nested procedures and captured variables</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the nested procedure example where `print_message` is declared inside `do_stuff`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-49', this)">[answer]</a></p>
+<pre id="answer-49" class="answer"><code>do_stuff :: proc() {
+	print_message :: proc(msg: string) {
+		fmt.println(msg)
+	}
+
+	print_message(&quot;Hellope!&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the extended example with a global variable, global constant, local variable, and nested procedure. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-50', this)">[answer]</a></p>
+<pre id="answer-50" class="answer"><code>global_state: int
+CONSTANT_NUMBER :: 7
+
+do_stuff :: proc() {
+	local_variable: int
+
+	print_message :: proc(msg: string) {
+		fmt.println(msg)
+	}
+
+	print_message(&quot;Hellope!&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Which things can `print_message` use in the extended example? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-51', this)">[answer]</a></p>
+<pre id="answer-51" class="answer"><code>print_message can use:
+
+- The parameter msg
+- The global variable global_state
+- The global constant CONSTANT_NUMBER</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Which variable can the nested `print_message` not see? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-52', this)">[answer]</a></p>
+<pre id="answer-52" class="answer"><code>print_message cannot see or use local_variable that lives in the parent procedure do_stuff.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why can nested procedures always use globals? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-53', this)">[answer]</a></p>
+<pre id="answer-53" class="answer"><code>Globals live for as long as the program runs.
+
+They are not bound to the lifetime of any procedure.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the example of a static variable inside a procedure. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-54', this)">[answer]</a></p>
+<pre id="answer-54" class="answer"><code>@static my_variable: int</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> How does a static variable inside a procedure behave? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-55', this)">[answer]</a></p>
+<pre id="answer-55" class="answer"><code>A static variable behaves like a global variable, but it is only available within the procedure where it was declared.
+
+Its value lives on between different calls to that procedure.</code></pre>
+</div>
+<h2 id="section-7.5">7.5 Parameters are always immutable</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the example that does not compile because it tries to change the parameter `n`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-56', this)">[answer]</a></p>
+<pre id="answer-56" class="answer"><code>divide_numbers :: proc(n, d: f32) -&gt; f32 {
+	n = n / d
+	return n
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does immutable mean? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-57', this)">[answer]</a></p>
+<pre id="answer-57" class="answer"><code>&quot;mutable&quot; means possible to change.
+
+&quot;immutable&quot; means not possible to change.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is true about all procedure parameters in Odin? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-58', this)">[answer]</a></p>
+<pre id="answer-58" class="answer"><code>All procedure parameters are always immutable.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the fixed version that creates a mutable local copy of `n`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-59', this)">[answer]</a></p>
+<pre id="answer-59" class="answer"><code>divide_numbers :: proc(n, d: f32) -&gt; f32 {
+	n := n
+	n = n / d
+	return n
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is shadowing in this example? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-60', this)">[answer]</a></p>
+<pre id="answer-60" class="answer"><code>Creating a new variable with the same name as a procedure parameter is known as shadowing.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the pointer-parameter procedure that modifies the value the pointer refers to. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-61', this)">[answer]</a></p>
+<pre id="answer-61" class="answer"><code>increase_number :: proc(n: ^int, amount: int) {
+	n^ += amount
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the example that does not compile because it tries to change what pointer parameter `n` points to. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-62', this)">[answer]</a></p>
+<pre id="answer-62" class="answer"><code>increase_number :: proc(n: ^int, amount: int) {
+	some_other_int := 7
+	n = &amp;some_other_int
+	n^ += amount
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> For a pointer parameter, what is immutable: the address or the pointed-to memory? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-63', this)">[answer]</a></p>
+<pre id="answer-63" class="answer"><code>The address that the pointer contains is immutable.
+
+The memory it points to can still be modified.</code></pre>
+</div>
+<h2 id="section-7.6">7.6 Don&#x27;t use pointer parameters for the sake of optimization</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the `Person` struct example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-64', this)">[answer]</a></p>
+<pre id="answer-64" class="answer"><code>Person :: struct {
+	name: string,
+	health: int,
+	age: int,
+	number_of_teeth: int,
+	height_meters: f32,
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write `print_person_info` using a value parameter `p: Person`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-65', this)">[answer]</a></p>
+<pre id="answer-65" class="answer"><code>print_person_info :: proc(p: Person) {
+	fmt.printfln(&quot;%v is %v years old and has %v teeth.&quot;, p.name, p.age, p.number_of_teeth)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the pointer-parameter version of `print_person_info`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-66', this)">[answer]</a></p>
+<pre id="answer-66" class="answer"><code>print_person_info :: proc(p: ^Person) {
+	fmt.printfln(&quot;%v is %v years old and has %v teeth.&quot;, p.name, p.age, p.number_of_teeth)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Show the pointer parameter form and the value parameter form for `Person`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-67', this)">[answer]</a></p>
+<pre id="answer-67" class="answer"><code>p: ^Person
+
+p: Person</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why might `p: ^Person` seem reasonable at first? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-68', this)">[answer]</a></p>
+<pre id="answer-68" class="answer"><code>Person uses 48 bytes of memory.
+
+A pointer only uses 8 bytes on a 64 bit computer.
+
+So it may seem like there would be way less copying if you used a pointer.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why is `p: ^Person` not necessary just for optimization in Odin? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-69', this)">[answer]</a></p>
+<pre id="answer-69" class="answer"><code>Because the size of Person is larger than 16 bytes, it will automatically be passed as an immutable reference.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the example that checks how many bytes a type uses. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-70', this)">[answer]</a></p>
+<pre id="answer-70" class="answer"><code>size_of(Person)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the full `hans` example and pass it to `print_person_info`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-71', this)">[answer]</a></p>
+<pre id="answer-71" class="answer"><code>print_person_info :: proc(p: Person) {
+	fmt.printfln(&quot;%v is %v years old and has %v teeth.&quot;, p.name, p.age, p.number_of_teeth)
+}
+
+hans := Person {
+	name = &quot;Hans&quot;,
+	age = 65,
+	number_of_teeth = 6,
+	health = 20,
+	height_meters = 1.69,
+}
+
+print_person_info(hans)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> When `print_person_info(hans)` is called, what happens under the surface? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-72', this)">[answer]</a></p>
+<pre id="answer-72" class="answer"><code>hans outside the procedure uses the exact same memory as p inside the procedure.
+
+Under the surface the compiler has passed it as a reference.
+
+However, the reference is immutable.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the line that creates a modifiable local copy of `p`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-73', this)">[answer]</a></p>
+<pre id="answer-73" class="answer"><code>p := p</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> When should you use a pointer parameter? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-74', this)">[answer]</a></p>
+<pre id="answer-74" class="answer"><code>Use a pointer parameter if you want to actually make a procedure that modifies something.</code></pre>
+</div>
+<h2 id="section-7.6.1">7.6.1 Pointer and immutable reference aliasing</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the `Person` and `Couple_Data` structs from the aliasing example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-75', this)">[answer]</a></p>
+<pre id="answer-75" class="answer"><code>Person :: struct {
+	name: string,
+	health: int,
+	age: int,
+	number_of_teeth: int,
+	height_meters: f32,
+}
+
+Couple_Data :: struct {
+	person_1: Person,
+	person_2: Person,
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the `couple_data` initialization example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-76', this)">[answer]</a></p>
+<pre id="answer-76" class="answer"><code>couple_data := Couple_Data {
+	person_1 = {
+		name = &quot;Hans&quot;,
+		age = 65,
+	},
+	person_2 = {
+		name = &quot;Maj-Britt&quot;,
+		age = 50,
+	},
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the aliasing example where modifying `cd.person_1` also modifies `person`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-77', this)">[answer]</a></p>
+<pre id="answer-77" class="answer"><code>aliasing_example :: proc(cd: ^Couple_Data, person: Person) {
+	cd.person_1 = {
+		name = &quot;This modifies &#x27;person&#x27; too&quot;,
+	}
+
+	fmt.println(person.name) // Prints &quot;This modifies &#x27;person&#x27; too&quot;
+}
+
+aliasing_example(&amp;couple_data, couple_data.person_1)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write only the call to `aliasing_example`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-78', this)">[answer]</a></p>
+<pre id="answer-78" class="answer"><code>aliasing_example(&amp;couple_data, couple_data.person_1)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why does changing `cd.person_1` also change what `person.name` prints? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-79', this)">[answer]</a></p>
+<pre id="answer-79" class="answer"><code>Because Person uses 48 bytes of memory, it is automatically passed as an immutable reference.
+
+Inside aliasing_example, person is an immutable reference to the exact same memory as cd.person_1.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the fixed aliasing example that makes an explicit copy of `person`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-80', this)">[answer]</a></p>
+<pre id="answer-80" class="answer"><code>aliasing_example :: proc(cd: ^Couple_Data, person: Person) {
+	person := person
+
+	cd.person_1 = {
+		name = &quot;This no longer modifies &#x27;person&#x27;&quot;,
+	}
+
+	fmt.println(person.name) // Prints the original name
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does pointer aliasing mean? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-81', this)">[answer]</a></p>
+<pre id="answer-81" class="answer"><code>Pointer aliasing means that you have two pointers that somehow reference the same data.
+
+Changing data through one pointer alters what you see through the other pointer.</code></pre>
+</div>
+<h2 id="section-7.7">7.7 Explicit overloading</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the explicit overload group named `length`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-82', this)">[answer]</a></p>
+<pre id="answer-82" class="answer"><code>length :: proc {
+	length_float2,
+	length_float3,
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the 2D vector length procedure. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-83', this)">[answer]</a></p>
+<pre id="answer-83" class="answer"><code>length_float2 :: proc(v: [2]f32) -&gt; f32 {
+	return math.sqrt(v.x*v.x + v.y*v.y)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the 3D vector length procedure. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-84', this)">[answer]</a></p>
+<pre id="answer-84" class="answer"><code>length_float3 :: proc(v: [3]f32) -&gt; f32 {
+	return math.sqrt(v.x*v.x + v.y*v.y + v.z*v.z)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does `length :: proc { ... }` do? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-85', this)">[answer]</a></p>
+<pre id="answer-85" class="answer"><code>It makes an explicit overload.
+
+Inside the curly braces, you list all the procedures you want to be available under the name length.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Use `length` with both a `[2]f32` and `[3]f32` value. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-86', this)">[answer]</a></p>
+<pre id="answer-86" class="answer"><code>v2 := [2]f32 { 3, 3 }
+v3 := [3]f32 { 3, 3, 3}
+len_v2 := length(v2)
+len_v3 := length(v3)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Call the specific overload variant `length_float2` directly. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-87', this)">[answer]</a></p>
+<pre id="answer-87" class="answer"><code>v2 := [2]f32 { 3, 3 }
+len_v2 := length_float2(v2)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is a positive thing about explicit overloading? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-88', this)">[answer]</a></p>
+<pre id="answer-88" class="answer"><code>You can still use a specific variant if you want.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Where does `math.sqrt` come from? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-89', this)">[answer]</a></p>
+<pre id="answer-89" class="answer"><code>math.sqrt comes from:
+
+import &quot;core:math&quot;</code></pre>
+</div>
+<h2 id="section-7.8">7.8 Run procedures on startup and shutdown</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the full `@init` and `@fini` example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-90', this)">[answer]</a></p>
+<pre id="answer-90" class="answer"><code>package init_fini_example
+
+import &quot;base:runtime&quot;
+import &quot;core:fmt&quot;
+
+main :: proc() {
+	fmt.println(&quot;Program running&quot;)
+}
+
+@init
+startup :: proc &quot;contextless&quot; () {
+	context = runtime.default_context()
+	fmt.println(&quot;Program started&quot;)
+}
+
+@fini
+shutdown :: proc &quot;contextless&quot; () {
+	context = runtime.default_context()
+	fmt.println(&quot;Program shutting down&quot;)
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does the `@init` and `@fini` program print? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-91', this)">[answer]</a></p>
+<pre id="answer-91" class="answer"><code>Program started
+Program running
+Program shutting down</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does `@init` do? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-92', this)">[answer]</a></p>
+<pre id="answer-92" class="answer"><code>Put @init in front of a procedure to automatically run it when your program starts.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does `@fini` do? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-93', this)">[answer]</a></p>
+<pre id="answer-93" class="answer"><code>Put @fini in front of a procedure to automatically run it when your program shuts down.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the line used inside `startup` and `shutdown` to give `context` a value. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-94', this)">[answer]</a></p>
+<pre id="answer-94" class="answer"><code>context = runtime.default_context()</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why are `startup` and `shutdown` marked `contextless`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-95', this)">[answer]</a></p>
+<pre id="answer-95" class="answer"><code>contextless is required for any procedure that has the @init or @fini attribute.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is a calling convention? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-96', this)">[answer]</a></p>
+<pre id="answer-96" class="answer"><code>A calling convention controls how a procedure is called, such as how it is passed parameters and how it returns things.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why does the example set `context = runtime.default_context()` before calling `fmt.println`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-97', this)">[answer]</a></p>
+<pre id="answer-97" class="answer"><code>fmt.println expects to be implicitly passed a context.
+
+Because startup and shutdown are contextless, the code first gives context a value.</code></pre>
+</div>
+<h2 id="section-7.9">7.9 The scope and the stack</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the simple procedure scope example with `number := 7`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-98', this)">[answer]</a></p>
+<pre id="answer-98" class="answer"><code>my_proc :: proc() {
+	number := 7
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Where is `number` valid in the simple scope example? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-99', this)">[answer]</a></p>
+<pre id="answer-99" class="answer"><code>number is only valid within the scope of the procedure.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the classic mistake: returning a pointer to a local variable through an intermediate variable. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-100', this)">[answer]</a></p>
+<pre id="answer-100" class="answer"><code>my_proc :: proc() -&gt; ^int {
+	number := 7
+	number_pointer := &amp;number
+	return number_pointer
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why is returning `number_pointer` a mistake? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-101', this)">[answer]</a></p>
+<pre id="answer-101" class="answer"><code>The pointer is the address of the local variable number.
+
+Once the procedure is over, number is no longer valid, so the pointer points at garbage memory.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the return form that the compiler would reject directly. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-102', this)">[answer]</a></p>
+<pre id="answer-102" class="answer"><code>return &amp;number</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is a stack frame? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-103', this)">[answer]</a></p>
+<pre id="answer-103" class="answer"><code>A stack frame is memory big enough to hold the procedure&#x27;s local variables, parameters, and information about where to store the return values.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> How much memory does an `int` use on a 64 bit system? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-104', this)">[answer]</a></p>
+<pre id="answer-104" class="answer"><code>int is a 64 bit integer on 64 bit systems.
+
+64 bits is equivalent to 8 bytes.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What happens to local variables when a procedure finishes? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-105', this)">[answer]</a></p>
+<pre id="answer-105" class="answer"><code>When a procedure finishes, its stack frame is destroyed, or popped off the top of the stack.
+
+Since local variables live inside the stack frame, there is no need to deallocate them manually.</code></pre>
+</div>
+<h2 id="section-7.10">7.10 Scopes within scopes</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the `if`-statement scope example where `message` is only available inside the `if` block. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-106', this)">[answer]</a></p>
+<pre id="answer-106" class="answer"><code>my_proc :: proc() {
+	number := 7
+
+	if number &gt; 5 {
+		message := &quot;It&#x27;s more than 5&quot;
+		fmt.println(message)
+	}
+
+	// message is not available here
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Which blocks create their own scope? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-107', this)">[answer]</a></p>
+<pre id="answer-107" class="answer"><code>The code within the curly braces of any if, for, or proc has its own scope.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Which statement does not have its own scope? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-108', this)">[answer]</a></p>
+<pre id="answer-108" class="answer"><code>The when statement does not have its own scope.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the anonymous scope example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-109', this)">[answer]</a></p>
+<pre id="answer-109" class="answer"><code>my_proc :: proc() {
+	number := 7
+
+	{
+		message := &quot;Hellope&quot;
+		fmt.println(message)
+	}
+
+	// message is not available here
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is an anonymous scope? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-110', this)">[answer]</a></p>
+<pre id="answer-110" class="answer"><code>An anonymous scope is code contained between two curly braces.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why should you not use a pointer to `message` outside the anonymous scope? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-111', this)">[answer]</a></p>
+<pre id="answer-111" class="answer"><code>The compiler backend might do optimizations where it reuses stack memory.
+
+So you should never try to use such a pointer to save stack memory space.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> When can anonymous scopes be useful? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-112', this)">[answer]</a></p>
+<pre id="answer-112" class="answer"><code>Anonymous scopes can be useful in long procedures where you would otherwise get variable name collisions.</code></pre>
+</div>
+<h2 id="section-7.11">7.11 defer: Making things happen at end of scope</h2>
+<div class="problem">
+<p><strong>Code:</strong> Write the `read_file` example that uses `defer` to close a file handle. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-113', this)">[answer]</a></p>
+<pre id="answer-113" class="answer"><code>read_file :: proc() {
+	f, err := os.open(&quot;my_file.txt&quot;)
+
+	if err != os.ERROR_NONE {
+		// handle error
+	}
+
+	defer os.close(f)
+
+	// Put code here that uses `f`
+	// to read data from file.
+
+	// os.close(f) is run at the end of
+	// the procedure.
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the exact deferred close line from the file example. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-114', this)">[answer]</a></p>
+<pre id="answer-114" class="answer"><code>defer os.close(f)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What does `defer os.close(f)` do? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-115', this)">[answer]</a></p>
+<pre id="answer-115" class="answer"><code>It makes os.close(f) run at the end of the scope.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> If `defer` is inside an anonymous scope or `if` block, when does it execute? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-116', this)">[answer]</a></p>
+<pre id="answer-116" class="answer"><code>It executes at the end of that scope, not at the end of the procedure.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the `most_green_color` example that unloads an image with `defer`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-117', this)">[answer]</a></p>
+<pre id="answer-117" class="answer"><code>most_green_color :: proc(filename: cstring) -&gt; rl.Color {
+	img := rl.LoadImage(filename)
+
+	if img.data == nil || img.width == 0 || img.height == 0 {
+		return {}
+	}
+
+	defer rl.UnloadImage(img)
+
+	most_green_color := rl.GetImageColor(img, 0, 0)
+
+	for x in 0..&lt;img.width {
+		for y in 0..&lt;img.height {
+			color := rl.GetImageColor(img, i32(x), i32(y))
+
+			if color.g == 255 {
+				// rl.UnloadImage(img) happens after this line
+				return color 
+			}
+
+			if color.g &gt; most_green_color.g {
+				most_green_color = color
+			}
+		}
+	}
+
+	return most_green_color
+} // &lt;-- rl.UnloadImage(img) happens here.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the deferred image cleanup line from `most_green_color`. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-118', this)">[answer]</a></p>
+<pre id="answer-118" class="answer"><code>defer rl.UnloadImage(img)</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the early return section where the deferred unload still happens. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-119', this)">[answer]</a></p>
+<pre id="answer-119" class="answer"><code>if color.g == 255 {
+	// rl.UnloadImage(img) happens after this line 
+	return color
+}</code></pre>
+</div>
+<div class="problem">
+<p><strong>Code:</strong> Write the final return section where the deferred unload also happens. <a class="answer-link" href="#" onclick="return toggleAnswer('answer-120', this)">[answer]</a></p>
+<pre id="answer-120" class="answer"><code>return most_green_color
+} // &lt;-- rl.UnloadImage(img) happens here.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> What is powerful about `defer` when a procedure has multiple returns? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-121', this)">[answer]</a></p>
+<pre id="answer-121" class="answer"><code>You can defer something once, but have it happen in different places depending on how the scope ends.
+
+This is useful when returning early from procedures.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> If there are multiple defers within a scope, what order do they run in? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-122', this)">[answer]</a></p>
+<pre id="answer-122" class="answer"><code>They happen in the reverse order of how they were created.</code></pre>
+</div>
+<h2 id="section-7.11.1">7.11.1 Don&#x27;t overuse defer</h2>
+<div class="problem">
+<p><strong>Concept:</strong> Why can `defer` reduce bugs? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-123', this)">[answer]</a></p>
+<pre id="answer-123" class="answer"><code>It reduces bugs related to having return in multiple places.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> Why can overusing `defer` make code harder to read? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-124', this)">[answer]</a></p>
+<pre id="answer-124" class="answer"><code>You can&#x27;t read the code in a serial manner anymore.</code></pre>
+</div>
+<div class="problem">
+<p><strong>Concept:</strong> When does the author personally use `defer`? <a class="answer-link" href="#" onclick="return toggleAnswer('answer-125', this)">[answer]</a></p>
+<pre id="answer-125" class="answer"><code>The author uses defer in procedures like most_green_color, where cleanup code should run regardless of how the procedure ends.</code></pre>
+</div>
+<footer>Odin Chapter 7 interactive problem set.</footer>
+</div></main>
+</body></html>
