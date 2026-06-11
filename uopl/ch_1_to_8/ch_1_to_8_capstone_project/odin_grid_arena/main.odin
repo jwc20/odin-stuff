@@ -40,8 +40,8 @@ get_world_index :: proc(position: Position) -> int {
 }
 
 
-place_player :: proc(world: []u8, player_index: int) -> []u8 {
-	world[player_index] = 'P'
+place_player :: proc(world: []u8, player: Player, player_index: int) -> []u8 {
+	world[player_index] = u8(player.symbol)
 	return world
 }
 
@@ -60,14 +60,16 @@ main :: proc() {
 	world_string := make_world(MAP_WIDTH, MAP_HEIGHT)
 	render_world(world_string)
 
-	current_position := [2]int {3,3}
 	my_player := Player{
+		entity = {
+			position = {3, 3},
+			symbol = 'P',
+		},
 		health = 100,
-		position = current_position,
 	}
 
-	player_world_index := get_world_index(current_position)
-	place_player(world_string, player_world_index)
+	player_world_index := get_world_index(my_player.entity.position)
+	place_player(world_string, my_player, player_world_index)
 	render_world(world_string)
 
 
