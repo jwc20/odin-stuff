@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Odin Chapter 8 Problem Set</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  html { scrollbar-gutter: stable; }
+  body { line-height: 1.4; font-size: 16px; padding: 0 10px; margin: 50px auto; max-width: 720px; font-family: Georgia, "Times New Roman", serif; color: #111; background: #fff; }
+  #maincontent { max-width: 44em; margin: 15px auto; }
+  h1, h2, h3 { line-height: 1.2; }
+  h1 { margin-bottom: 0.25em; }
+  h2 { margin-top: 2.2em; padding-top: 0.4em; border-top: 1px solid #ddd; }
+  p { margin: 0.75em 0; }
+  a { color: inherit; text-decoration: underline; }
+  a:hover { text-decoration: none; }
+  .intro { margin-bottom: 2em; }
+  .problem { margin: 1.1em 0 1.5em; }
+  .answer { display: none; white-space: pre-wrap; padding: 12px; border: 1px solid #ddd; background: #f8f8f8; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; }
+  .answer.visible { display: block; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .answer-link { margin-left: 0.25em; }
+  .toc { border: 1px solid #ddd; padding: 12px 16px; margin: 1.5em 0; background: #fafafa; }
+  .toc ul { margin: 0.5em 0 0; padding-left: 1.2em; }
+  footer { margin: 60px auto 30px; max-width: 720px; padding-top: 18px; border-top: 1px solid #ddd; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+<div id="maincontent">
+  <h1><strong>Odin Chapter 8 Problem Set</strong></h1>
+  <p class="intro">Fixed-memory containers. Click each <code>[answer]</code> link to show or hide the answer. Code and concept answers appear in boxes below each problem.</p>
+  <div class="toc"><strong>Sections</strong><ul><li><a href="#section-8">8 Fixed-memory containers</a></li><li><a href="#section-8.1">8.1 Fixed arrays revisited</a></li><li><a href="#section-8.1.1">8.1.1 Where does the memory live?</a></li><li><a href="#section-8.1.2">8.1.2 Blowing up the stack</a></li><li><a href="#section-8.1.3">8.1.3 Vectors and array programming</a></li><li><a href="#section-8.1.4">8.1.4 Passing fixed arrays to procedures</a></li><li><a href="#section-8.2">8.2 Enumerated arrays</a></li><li><a href="#section-8.3">8.3 Fixed Capacity Dynamic Arrays</a></li></ul></div>
+  <h2 id="section-8">8 Fixed-memory containers</h2>
+<div class="problem">
+  <p><strong>1. Concept:</strong> What is a container in this chapter? <a href="#answer-1" class="answer-link" data-target="answer-1">[answer]</a></p>
+  <pre id="answer-1" class="answer"><code>Containers are things in your program that can contain several items of a certain type.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>2. Concept:</strong> Why are fixed arrays, enumerated arrays, and FCD Arrays called fixed-memory containers? <a href="#answer-2" class="answer-link" data-target="answer-2">[answer]</a></p>
+  <pre id="answer-2" class="answer"><code>They are simple containers that do not require manual memory management and cannot grow larger than the initial size we give them.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>3. Concept:</strong> What does FCD Array stand for? <a href="#answer-3" class="answer-link" data-target="answer-3">[answer]</a></p>
+  <pre id="answer-3" class="answer"><code>Fixed Capacity Dynamic Array.</code></pre>
+</div>
+<h2 id="section-8.1">8.1 Fixed arrays revisited</h2>
+<div class="problem">
+  <p><strong>4. Code:</strong> Create a fixed array containing 7 integers without assigning explicit values. <a href="#answer-4" class="answer-link" data-target="answer-4">[answer]</a></p>
+  <pre id="answer-4" class="answer"><code>some_ints: [7]int</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>5. Concept:</strong> What values will the 7 integers contain after `some_ints: [7]int`? <a href="#answer-5" class="answer-link" data-target="answer-5">[answer]</a></p>
+  <pre id="answer-5" class="answer"><code>All the 7 integers in this fixed array will be zero.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>6. Code:</strong> Assign all 7 values to the existing fixed array `some_ints`. <a href="#answer-6" class="answer-link" data-target="answer-6">[answer]</a></p>
+  <pre id="answer-6" class="answer"><code>some_ints = { 51, 21, 621, 1, 51, 7, 12 }</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>7. Concept:</strong> When assigning a value to a fixed array directly, how many values must you specify? <a href="#answer-7" class="answer-link" data-target="answer-7">[answer]</a></p>
+  <pre id="answer-7" class="answer"><code>You must specify all the values when you set it.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>8. Code:</strong> Clear all elements of `some_ints` so they become zero. <a href="#answer-8" class="answer-link" data-target="answer-8">[answer]</a></p>
+  <pre id="answer-8" class="answer"><code>some_ints = {}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>9. Code:</strong> Declare and assign a fixed array of 7 integers in one line. <a href="#answer-9" class="answer-link" data-target="answer-9">[answer]</a></p>
+  <pre id="answer-9" class="answer"><code>some_ints := [7]int { 51, 21, 621, 1, 51, 7, 12 }</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>10. Code:</strong> Set indices 3, 4, and 5 of `some_ints`, then print index 4. <a href="#answer-10" class="answer-link" data-target="answer-10">[answer]</a></p>
+  <pre id="answer-10" class="answer"><code>some_ints[3] = 500
+some_ints[4] = 200
+some_ints[5] = 333
+
+fmt.println(some_ints[4]) // 200</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>11. Concept:</strong> How do you fetch the length of a fixed array? <a href="#answer-11" class="answer-link" data-target="answer-11">[answer]</a></p>
+  <pre id="answer-11" class="answer"><code>You can fetch the length of the array using len(some_ints).</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>12. Concept:</strong> If an array has length 7, what is the index of the last element? <a href="#answer-12" class="answer-link" data-target="answer-12">[answer]</a></p>
+  <pre id="answer-12" class="answer"><code>Indices start at 0, meaning that the index of the last element is len(some_ints) - 1.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>13. Concept:</strong> What is an off-by-one error? <a href="#answer-13" class="answer-link" data-target="answer-13">[answer]</a></p>
+  <pre id="answer-13" class="answer"><code>Bugs where you accidentally use index i-1 or i+1 instead of i are very common and are referred to as off-by-one errors.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>14. Code:</strong> Loop through all values in `some_ints` and print each value. <a href="#answer-14" class="answer-link" data-target="answer-14">[answer]</a></p>
+  <pre id="answer-14" class="answer"><code>for v in some_ints {
+	fmt.println(v)
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>15. Code:</strong> Loop through `some_ints` with both value and index, then print them. <a href="#answer-15" class="answer-link" data-target="answer-15">[answer]</a></p>
+  <pre id="answer-15" class="answer"><code>for v, i in some_ints {
+	// This will print:
+	// `value at 0 is &lt;some number&gt;`
+	// etc
+	fmt.printfln(&quot;value at %v is %v&quot;, i, v)
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>16. Concept:</strong> In `for v, i in some_ints`, what does the `, i` add? <a href="#answer-16" class="answer-link" data-target="answer-16">[answer]</a></p>
+  <pre id="answer-16" class="answer"><code>It adds another loop variable for the index.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>17. Concept:</strong> Is `v` mutable in a normal `for v in some_ints` loop? <a href="#answer-17" class="answer-link" data-target="answer-17">[answer]</a></p>
+  <pre id="answer-17" class="answer"><code>v is immutable, meaning it is not possible to modify.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>18. Code:</strong> Loop through `some_ints` and multiply each element by 2. <a href="#answer-18" class="answer-link" data-target="answer-18">[answer]</a></p>
+  <pre id="answer-18" class="answer"><code>for &amp;v in some_ints {
+	v *= 2
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>19. Concept:</strong> In `for &amp;v in some_ints`, does `&amp;v` give you a pointer? <a href="#answer-19" class="answer-link" data-target="answer-19">[answer]</a></p>
+  <pre id="answer-19" class="answer"><code>The &amp; here does not give you a pointer to the element. It gives you an addressable that you can assign to.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>20. Concept:</strong> Why might looping without `&amp;` be slow for arrays of big structs? <a href="#answer-20" class="answer-link" data-target="answer-20">[answer]</a></p>
+  <pre id="answer-20" class="answer"><code>Without the &amp;, each lap of the loop makes a copy of the element. This can be of concern if you iterate an array of big structs.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>21. Code:</strong> Define a `Rectangle` struct with `x`, `y`, `width`, and `height` fields, then create a fixed array of 10 rectangles. <a href="#answer-21" class="answer-link" data-target="answer-21">[answer]</a></p>
+  <pre id="answer-21" class="answer"><code>Rectangle :: struct {
+	x, y, width, height: f32,
+}
+
+rectangles: [10]Rectangle</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>22. Concept:</strong> What happens to all fields of the 10 rectangles in `rectangles: [10]Rectangle`? <a href="#answer-22" class="answer-link" data-target="answer-22">[answer]</a></p>
+  <pre id="answer-22" class="answer"><code>All of them have their fields zeroed by default.</code></pre>
+</div>
+<h2 id="section-8.1.1">8.1.1 Where does the memory live?</h2>
+<div class="problem">
+  <p><strong>23. Code:</strong> Inside `main`, create a fixed array of 100 integers. <a href="#answer-23" class="answer-link" data-target="answer-23">[answer]</a></p>
+  <pre id="answer-23" class="answer"><code>main :: proc() {
+	some_ints: [100]int
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>24. Concept:</strong> Where does a fixed array created inside a procedure live? <a href="#answer-24" class="answer-link" data-target="answer-24">[answer]</a></p>
+  <pre id="answer-24" class="answer"><code>The memory of some_ints is part of the stack frame of the procedure main.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>25. Code:</strong> Show that assigning a fixed array to a new variable copies all array data. <a href="#answer-25" class="answer-link" data-target="answer-25">[answer]</a></p>
+  <pre id="answer-25" class="answer"><code>main :: proc() {
+	some_ints: [100]int
+	some_ints[10] = 2
+	some_ints2 := some_ints
+	some_ints2[10] = 5
+	fmt.println(some_ints[10]) // 2
+	fmt.println(some_ints2[10]) // 5
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>26. Concept:</strong> What does the copy example prove about `some_ints` and `some_ints2`? <a href="#answer-26" class="answer-link" data-target="answer-26">[answer]</a></p>
+  <pre id="answer-26" class="answer"><code>This shows that there is no shared memory between these two fixed arrays.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>27. Code:</strong> Give the two ways from the text to get a pointer to the first element of a fixed array. <a href="#answer-27" class="answer-link" data-target="answer-27">[answer]</a></p>
+  <pre id="answer-27" class="answer"><code>raw_data(&amp;some_ints)
+&amp;some_ints[0]</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>28. Code:</strong> Define a struct containing a fixed array of 100 integers. <a href="#answer-28" class="answer-link" data-target="answer-28">[answer]</a></p>
+  <pre id="answer-28" class="answer"><code>My_Struct :: struct {
+	some_ints: [100]int,
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>29. Code:</strong> Show that copying a struct copies the fixed array inside it. <a href="#answer-29" class="answer-link" data-target="answer-29">[answer]</a></p>
+  <pre id="answer-29" class="answer"><code>main :: proc() {
+	a_struct: My_Struct
+	a_struct.some_ints[10] = 2
+	another_struct := a_struct
+	another_struct.some_ints[10] = 5
+	fmt.println(a_struct.some_ints[10]) // 2
+	fmt.println(another_struct.some_ints[10]) // 5
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>30. Concept:</strong> What does the struct-copy example show about fixed arrays inside structs? <a href="#answer-30" class="answer-link" data-target="answer-30">[answer]</a></p>
+  <pre id="answer-30" class="answer"><code>Fixed arrays take up space directly within the struct. If you create a copy of a struct, then you get a copy of all the fields it contains, including fixed arrays.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>31. Concept:</strong> What happens if your struct has a pointer field and you copy the struct? <a href="#answer-31" class="answer-link" data-target="answer-31">[answer]</a></p>
+  <pre id="answer-31" class="answer"><code>If your struct has any kind of pointer, then the data which the pointer refers to will not get copied.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>32. Concept:</strong> What is a shallow copy according to this section? <a href="#answer-32" class="answer-link" data-target="answer-32">[answer]</a></p>
+  <pre id="answer-32" class="answer"><code>Only data that directly takes up space within the struct will get copied.</code></pre>
+</div>
+<h2 id="section-8.1.2">8.1.2 Blowing up the stack</h2>
+<div class="problem">
+  <p><strong>33. Code:</strong> Show a giant fixed array inside `main` that may run out of stack memory. <a href="#answer-33" class="answer-link" data-target="answer-33">[answer]</a></p>
+  <pre id="answer-33" class="answer"><code>main :: proc() {
+	lots_of_ints: [1000000]int
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>34. Concept:</strong> Why can a giant fixed array inside a procedure crash your program? <a href="#answer-34" class="answer-link" data-target="answer-34">[answer]</a></p>
+  <pre id="answer-34" class="answer"><code>Since the stack frame of each procedure has a limited amount of memory available, making a giant fixed array is a common way to run out of stack memory.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>35. Code:</strong> Show a large global fixed array that is not part of a procedure&#x27;s stack memory. <a href="#answer-35" class="answer-link" data-target="answer-35">[answer]</a></p>
+  <pre id="answer-35" class="answer"><code>lots_of_ints: [10000000]int
+
+main :: proc() {
+	// lots_of_ints is a global variable
+	// that you can use for as long as your
+	// program runs.
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>36. Concept:</strong> Where do global variables live instead of the stack? <a href="#answer-36" class="answer-link" data-target="answer-36">[answer]</a></p>
+  <pre id="answer-36" class="answer"><code>Global variables live inside what is known as the data block of the program.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>37. Concept:</strong> What does the text recommend if you really need a fixed array that big? <a href="#answer-37" class="answer-link" data-target="answer-37">[answer]</a></p>
+  <pre id="answer-37" class="answer"><code>If you really need a fixed array that big, then you are probably better off dynamically allocating memory.</code></pre>
+</div>
+<h2 id="section-8.1.3">8.1.3 Vectors and array programming</h2>
+<div class="problem">
+  <p><strong>38. Code:</strong> Declare a 3D position using a fixed array of three `f32` values. <a href="#answer-38" class="answer-link" data-target="answer-38">[answer]</a></p>
+  <pre id="answer-38" class="answer"><code>position: [3]f32</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>39. Code:</strong> Declare a 2D position using a fixed array of two `f32` values. <a href="#answer-39" class="answer-link" data-target="answer-39">[answer]</a></p>
+  <pre id="answer-39" class="answer"><code>position: [2]f32</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>40. Code:</strong> Assign three values to the existing 3D position. <a href="#answer-40" class="answer-link" data-target="answer-40">[answer]</a></p>
+  <pre id="answer-40" class="answer"><code>position = {7, 1, 2}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>41. Code:</strong> Declare and assign a 3D position in one line. <a href="#answer-41" class="answer-link" data-target="answer-41">[answer]</a></p>
+  <pre id="answer-41" class="answer"><code>position := [3]f32 {7, 1, 2}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>42. Concept:</strong> For arrays with 4 or fewer items, what can you write instead of `position[0]`? <a href="#answer-42" class="answer-link" data-target="answer-42">[answer]</a></p>
+  <pre id="answer-42" class="answer"><code>When arrays have 4 or fewer items, then you can also index them using x, y, z and w. So instead of position[0] you can write position.x.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>43. Code:</strong> Create a new `[2]f32` from the z and x parts of `position`. <a href="#answer-43" class="answer-link" data-target="answer-43">[answer]</a></p>
+  <pre id="answer-43" class="answer"><code>zx_pos := position.zx</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>44. Concept:</strong> What is swizzling? <a href="#answer-44" class="answer-link" data-target="answer-44">[answer]</a></p>
+  <pre id="answer-44" class="answer"><code>You can create a smaller array from a bigger one using xyzw letters. You can also do stuff like position.xxyy or position.zyx. These kinds of operations are known as swizzling.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>45. Concept:</strong> What other letters can you use instead of `.xyzw` for color-style vectors? <a href="#answer-45" class="answer-link" data-target="answer-45">[answer]</a></p>
+  <pre id="answer-45" class="answer"><code>Because some applications use 4 dimensional numbers to represent colors, you can also use the letters .rgba instead of .xyzw.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>46. Code:</strong> Create a type alias named `Vector3` for `[3]f32`. <a href="#answer-46" class="answer-link" data-target="answer-46">[answer]</a></p>
+  <pre id="answer-46" class="answer"><code>Vector3 :: [3]f32</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>47. Concept:</strong> Why is the name `Vector3` used? <a href="#answer-47" class="answer-link" data-target="answer-47">[answer]</a></p>
+  <pre id="answer-47" class="answer"><code>Because Vector3 means 3D Vector. A 3D vector is a direction plus a length in 3D space, which is representable using 3 floating point numbers.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>48. Code:</strong> Create a type alias named `Position3` for `[3]f32`. <a href="#answer-48" class="answer-link" data-target="answer-48">[answer]</a></p>
+  <pre id="answer-48" class="answer"><code>Position3 :: [3]f32</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>49. Code:</strong> Add velocity to position using `Vector3` and print the result. <a href="#answer-49" class="answer-link" data-target="answer-49">[answer]</a></p>
+  <pre id="answer-49" class="answer"><code>position: Vector3
+velocity := Vector3 {0, 0, 10}
+position += velocity
+fmt.println(position) // [0, 0, 10]</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>50. Concept:</strong> What is array programming in this context? <a href="#answer-50" class="answer-link" data-target="answer-50">[answer]</a></p>
+  <pre id="answer-50" class="answer"><code>As long as two fixed arrays have the same element type and the same number of elements, then they can be added.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>51. Code:</strong> Subtract two `Vector3` values to get the vector from one position to another. <a href="#answer-51" class="answer-link" data-target="answer-51">[answer]</a></p>
+  <pre id="answer-51" class="answer"><code>position1 := Vector3 {10, 21, 1}
+position2 := Vector3 {9, 1, 3}
+from_1_to_2 := position2 - position1
+fmt.println(from_1_to_2) // [-1, -20, 2]</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>52. Code:</strong> Multiply two `Vector3` values element-wise. <a href="#answer-52" class="answer-link" data-target="answer-52">[answer]</a></p>
+  <pre id="answer-52" class="answer"><code>xz_vector := Vector3 {10, 0, -2}
+z_scaled_up := xz_vector * {1, 1, 10}
+fmt.println(z_scaled_up) // [10, 0, -20]</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>53. Code:</strong> Multiply a `Vector3` by a scalar. <a href="#answer-53" class="answer-link" data-target="answer-53">[answer]</a></p>
+  <pre id="answer-53" class="answer"><code>one_meter_ahead := Vector3 {0, 0, 1}
+ten_meters_ahead := one_meter_ahead * 10
+fmt.println(ten_meters_ahead) // [0, 0, 10]</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>54. Concept:</strong> What is a scalar? <a href="#answer-54" class="answer-link" data-target="answer-54">[answer]</a></p>
+  <pre id="answer-54" class="answer"><code>A single number is known as a scalar. This scalar must be of the same type as the fixed array&#x27;s elements.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>55. Concept:</strong> Does Odin have operator overloading? <a href="#answer-55" class="answer-link" data-target="answer-55">[answer]</a></p>
+  <pre id="answer-55" class="answer"><code>Odin does not have operator overloading.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>56. Concept:</strong> Why does the author not miss operator overloading much for vector math? <a href="#answer-56" class="answer-link" data-target="answer-56">[answer]</a></p>
+  <pre id="answer-56" class="answer"><code>One of the most common use cases for operator overloading is doing vector maths. The author has not missed operator overloading because of how great array programming works.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>57. Concept:</strong> If `arr: [10]int` is declared in global file scope, where does it live? <a href="#answer-57" class="answer-link" data-target="answer-57">[answer]</a></p>
+  <pre id="answer-57" class="answer"><code>It lives as a global in the data block of your program.</code></pre>
+</div>
+<h2 id="section-8.1.4">8.1.4 Passing fixed arrays to procedures</h2>
+<div class="problem">
+  <p><strong>58. Code:</strong> Write a procedure that takes an `Image` and a `[2]f32` position. <a href="#answer-58" class="answer-link" data-target="answer-58">[answer]</a></p>
+  <pre id="answer-58" class="answer"><code>draw_image :: proc(image: Image, position: [2]f32) {
+	// Draw image using position.
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>59. Code:</strong> Call `draw_image` with a hard-coded position. <a href="#answer-59" class="answer-link" data-target="answer-59">[answer]</a></p>
+  <pre id="answer-59" class="answer"><code>draw_image(my_image, {100, 200})</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>60. Concept:</strong> Why do you not need to write `[2]f32 {100, 200}` when calling `draw_image`? <a href="#answer-60" class="answer-link" data-target="answer-60">[answer]</a></p>
+  <pre id="answer-60" class="answer"><code>There&#x27;s no need to write the type name since the compiler can figure it out by looking at the type of the parameter.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>61. Code:</strong> Show the equivalent standard assignment to a fixed array. <a href="#answer-61" class="answer-link" data-target="answer-61">[answer]</a></p>
+  <pre id="answer-61" class="answer"><code>position: [2]f32
+position = {100, 200}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>62. Concept:</strong> How can you think about passing `{100, 200}` into `draw_image`? <a href="#answer-62" class="answer-link" data-target="answer-62">[answer]</a></p>
+  <pre id="answer-62" class="answer"><code>You can think of it as assigning it to the parameter instead of a local variable.</code></pre>
+</div>
+<h2 id="section-8.2">8.2 Enumerated arrays</h2>
+<div class="problem">
+  <p><strong>63. Code:</strong> Define the `Nice_People` enum from the text. <a href="#answer-63" class="answer-link" data-target="answer-63">[answer]</a></p>
+  <pre id="answer-63" class="answer"><code>Nice_People :: enum {
+	Bob,
+	Klucke,
+	Tim,
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>64. Code:</strong> Create an enumerated array that stores niceness ratings for each enum member. <a href="#answer-64" class="answer-link" data-target="answer-64">[answer]</a></p>
+  <pre id="answer-64" class="answer"><code>nice_rating := [Nice_People]int {
+	.Bob = 5,
+	.Klucke = 7,
+	.Tim = 3,
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>65. Concept:</strong> What makes `nice_rating` an enumerated array? <a href="#answer-65" class="answer-link" data-target="answer-65">[answer]</a></p>
+  <pre id="answer-65" class="answer"><code>It uses Nice_People between the two brackets: nice_rating := [Nice_People]int {</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>66. Code:</strong> Fetch Bob&#x27;s niceness rating from the enumerated array. <a href="#answer-66" class="answer-link" data-target="answer-66">[answer]</a></p>
+  <pre id="answer-66" class="answer"><code>bobs_niceness := nice_rating[.Bob]</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>67. Code:</strong> Declare an uninitialized enumerated array of `Nice_People` to `int`. <a href="#answer-67" class="answer-link" data-target="answer-67">[answer]</a></p>
+  <pre id="answer-67" class="answer"><code>nice_rating: [Nice_People]int</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>68. Concept:</strong> What values does an uninitialized enumerated array contain? <a href="#answer-68" class="answer-link" data-target="answer-68">[answer]</a></p>
+  <pre id="answer-68" class="answer"><code>It would have the same number of items as the enum, but all of them would be zeroed.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>69. Code:</strong> Partially initialize an enumerated array so only `.Klucke` is set to 10. <a href="#answer-69" class="answer-link" data-target="answer-69">[answer]</a></p>
+  <pre id="answer-69" class="answer"><code>nice_rating := #partial [Nice_People]int {
+	.Klucke = 10,
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>70. Concept:</strong> When do you need to write `#partial` for an enumerated array? <a href="#answer-70" class="answer-link" data-target="answer-70">[answer]</a></p>
+  <pre id="answer-70" class="answer"><code>You have to write #partial when you do a partial initialization. Either you mention all enum members, none, or use #partial.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>71. Concept:</strong> Do enumerated arrays allocate extra memory compared with fixed arrays? <a href="#answer-71" class="answer-link" data-target="answer-71">[answer]</a></p>
+  <pre id="answer-71" class="answer"><code>Enumerated arrays work just like fixed arrays. They live on the stack and copy in the same way. No extra memory allocations happen.</code></pre>
+</div>
+<h2 id="section-8.3">8.3 Fixed Capacity Dynamic Arrays</h2>
+<div class="problem">
+  <p><strong>72. Concept:</strong> What does an FCD Array behave like, even though it cannot grow past its initial capacity? <a href="#answer-72" class="answer-link" data-target="answer-72">[answer]</a></p>
+  <pre id="answer-72" class="answer"><code>It behaves as if it can grow, even though it cannot grow past its initial capacity.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>73. Concept:</strong> What type did the FCD Array replace? <a href="#answer-73" class="answer-link" data-target="answer-73">[answer]</a></p>
+  <pre id="answer-73" class="answer"><code>Before the FCD Array existed in Odin, there was a type in core called Small_Array. The FCD Array replaced Small_Array.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>74. Concept:</strong> What is the syntax difference between a dynamic array and an FCD Array? <a href="#answer-74" class="answer-link" data-target="answer-74">[answer]</a></p>
+  <pre id="answer-74" class="answer"><code>Dynamic arrays use [dynamic]T syntax. FCD Arrays use [dynamic; N]T syntax.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>75. Code:</strong> Create an FCD Array of integers with capacity 1024. <a href="#answer-75" class="answer-link" data-target="answer-75">[answer]</a></p>
+  <pre id="answer-75" class="answer"><code>arr: [dynamic; 1024]int</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>76. Code:</strong> Write the full FCD Array example program from the text. <a href="#answer-76" class="answer-link" data-target="answer-76">[answer]</a></p>
+  <pre id="answer-76" class="answer"><code>package fcd_array_example
+
+import &quot;core:fmt&quot;
+
+main :: proc() {
+	arr: [dynamic; 1024]int
+
+	append(&amp;arr, 5)
+	fmt.printfln(&quot;len: %v&quot;, len(arr))
+	fmt.println(arr)
+
+	append(&amp;arr, 7)
+	fmt.printfln(&quot;len: %v&quot;, len(arr))
+	fmt.println(arr)
+
+	append(&amp;arr, 11)
+	fmt.printfln(&quot;len: %v&quot;, len(arr))
+	fmt.println(arr)
+
+	// Remove element at index `0`. This
+	// may reorder the other elements.
+	unordered_remove(&amp;arr, 0)
+	fmt.printfln(&quot;len: %v&quot;, len(arr))
+	fmt.println(arr)
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>77. Concept:</strong> What does `append` do in the FCD Array example? <a href="#answer-77" class="answer-link" data-target="answer-77">[answer]</a></p>
+  <pre id="answer-77" class="answer"><code>It uses append to append things to the array.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>78. Concept:</strong> What does `unordered_remove` do in the FCD Array example? <a href="#answer-78" class="answer-link" data-target="answer-78">[answer]</a></p>
+  <pre id="answer-78" class="answer"><code>It uses unordered_remove to remove things from the array. unordered_remove may reorder the other elements.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>79. Concept:</strong> What does `ordered_remove` do differently from `unordered_remove`? <a href="#answer-79" class="answer-link" data-target="answer-79">[answer]</a></p>
+  <pre id="answer-79" class="answer"><code>ordered_remove preserves the order of the elements, but may be slower.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>80. Code:</strong> Write the output of the FCD Array example program. <a href="#answer-80" class="answer-link" data-target="answer-80">[answer]</a></p>
+  <pre id="answer-80" class="answer"><code>len: 1
+[5]
+len: 2
+[5, 7]
+len: 3
+[5, 7, 11]
+len: 2
+[11, 7]</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>81. Code:</strong> Show the runtime struct that stores FCD Array data. <a href="#answer-81" class="answer-link" data-target="answer-81">[answer]</a></p>
+  <pre id="answer-81" class="answer"><code>Raw_Fixed_Capacity_Dynamic_Array :: struct($Capacity: uint, $T: typeid) {
+	data: [Capacity]T,
+	len:  int,
+}</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>82. Concept:</strong> What two fields does the FCD Array contain under the hood? <a href="#answer-82" class="answer-link" data-target="answer-82">[answer]</a></p>
+  <pre id="answer-82" class="answer"><code>A data field, which is a fixed array. A len field, which keeps track of how many elements of data are actually in use.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>83. Concept:</strong> What happens when an FCD Array is full and `append` is called? <a href="#answer-83" class="answer-link" data-target="answer-83">[answer]</a></p>
+  <pre id="answer-83" class="answer"><code>When it is full, append will no longer do anything. It will then return 0 to indicate that nothing was added to the array.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>84. Concept:</strong> Where does the FCD Array live if it uses a fixed array under the hood? <a href="#answer-84" class="answer-link" data-target="answer-84">[answer]</a></p>
+  <pre id="answer-84" class="answer"><code>Since it uses a fixed array, the FCD Array lives in stack memory.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>85. Concept:</strong> What happens when you assign an FCD Array to a new variable? <a href="#answer-85" class="answer-link" data-target="answer-85">[answer]</a></p>
+  <pre id="answer-85" class="answer"><code>Assigning an FCD Array to a new variable copies all its data.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>86. Concept:</strong> How much stack memory does `[dynamic; 1024]int` use on a 64-bit system, according to the text? <a href="#answer-86" class="answer-link" data-target="answer-86">[answer]</a></p>
+  <pre id="answer-86" class="answer"><code>The FCD Array with room for 1024 integers will use 1024*size_of(int) = 1024 * 8 = 8192 bytes of stack memory. It will actually use 8 bytes more since it also contains the len field: A total of 8200 bytes.</code></pre>
+</div>
+
+<div class="problem">
+  <p><strong>87. Concept:</strong> What is the main downside of an FCD Array compared with a dynamic array? <a href="#answer-87" class="answer-link" data-target="answer-87">[answer]</a></p>
+  <pre id="answer-87" class="answer"><code>We can&#x27;t start small and grow over time with an FCD Array. A dynamic array can start tiny and then grow as it runs out of space, but it requires manual memory management.</code></pre>
+</div>
+
+</div>
+</main>
+<footer>Generated study set for Chapter 8: Fixed-memory containers.</footer>
+<script>
+  document.addEventListener("click", function (event) {
+    const link = event.target.closest(".answer-link");
+    if (!link) return;
+    event.preventDefault();
+    const targetId = link.getAttribute("data-target");
+    const answer = document.getElementById(targetId);
+    if (answer) {
+      answer.classList.toggle("visible");
+      link.textContent = answer.classList.contains("visible") ? "[hide answer]" : "[answer]";
+    }
+  });
+</script>
+</body>
+</html>
