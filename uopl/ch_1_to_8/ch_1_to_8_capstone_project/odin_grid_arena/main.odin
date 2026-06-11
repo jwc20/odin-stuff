@@ -9,16 +9,16 @@ MAP_HEIGHT :: 4
 
 Position :: [2]int
 
-Player :: struct {
-	health: int,
-	gold: int, 
-	position: Position,
-}
-
 Entity :: struct {
 	id: int,
 	position: Position,
 	symbol: rune,
+}
+
+Player :: struct {
+	using entity: Entity,
+	health: int,
+	gold: int, 
 }
 
 // ---------------------------------------------
@@ -34,7 +34,7 @@ render_world :: proc(world: []u8) {
 }
 
 get_world_index :: proc(position: Position) -> int {
-	row := MAP_HEIGHT - 1 - position.y
+	row := position.y
 	col := position.x
 	return row * MAP_WIDTH + col
 }
