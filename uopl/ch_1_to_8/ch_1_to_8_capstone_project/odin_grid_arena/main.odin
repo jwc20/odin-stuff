@@ -1,6 +1,8 @@
 package grid_arena
 
 import "core:fmt"
+import "core:os"
+import "core:strings"
 
 // ---------------------------------------------
 
@@ -21,10 +23,38 @@ Player :: struct {
 	gold: int, 
 }
 
+World :: struct {
+	// tiles: [MAP_HEIGHT][MAP_WIDTH]Tile,
+	// enemies: [dynamic; MAX_ENEMIES]Enemy,
+	// items: [dynamic; MAX_ITEMS]Item,
+	player: Player,
+	turn: int,
+	str: []u8,
+}
+
 // ---------------------------------------------
 
-render_world :: proc(world: []u8) {
-	for tile, index in world {
+
+handle_player_turn :: proc(world: ^World, command: string) {
+	player_index := get_world_index(world.player.entity.position)
+	world.str[player_index] = u8('.')
+	switch command {
+	case "q": 
+		return
+	case "w": 
+		world.player.entity.position.y += 1
+	case "s": 
+		world.player.entity.position.y -= 1
+	case "d": 
+		world.player.entity.position.x += 1
+	case "a": 	
+		world.player.entity.position.x -= 1
+	}
+	place_player(world)
+}
+
+render_world :: proc(world: World) {
+	for tile, index in world.str {
 		if index != 0 && index % MAP_WIDTH == 0 {
 			fmt.println()
 		}
@@ -42,9 +72,15 @@ get_world_index :: proc(position: Position) -> int {
 }
 
 
-place_player :: proc(world: []u8, player: Player, player_index: int) {
-	world[player_index] = u8(player.symbol)
+// place_player :: proc(world: []u8, player: Player, player_index: int) {
+// 	world[player_index] = u8(player.symbol)
+// }
+
+place_player :: proc(world: ^World) {
+	player_index := get_world_index(world.player.entity.position)
+	world.str[player_index] = u8(world.player.symbol)
 }
+
 
 
 make_world :: proc(width, height: int) -> []u8 {
@@ -55,24 +91,60 @@ make_world :: proc(width, height: int) -> []u8 {
 	return world
 }
 
+read_commands :: proc() -> []u8 {
+	buf: [256]byte
+	fmt.print("\n")
+	fmt.print("Enter command: ")
+	n, err := os.read(os.stdin, buf[:])
+	if err != nil {
+		fmt.eprintln("Error reading: ", err)
+
+	}
+	// str := string(buf[:n])
+	// fmt.println(buf[:n])
+	// fmt.print("\n")
+	result := buf[:n]
+	return result
+}
+
+
 // ---------------------------------------------
 
 main :: proc() {
-	world_string := make_world(MAP_WIDTH, MAP_HEIGHT)
-	render_world(world_string)
-	fmt.printfln("\n")
-
+	world_str := make_world(MAP_WIDTH, MAP_HEIGHT)
 	my_player := Player{
 		entity = {
-			position = {3, 3},
+			position = {MAP_WIDTH / 2, MAP_HEIGHT / 2},
 			symbol = 'P',
 		},
 		health = 100,
 	}
+	my_world := World {
+		player = my_player,
+		turn = 0,
+		str = world_str,
+	}
 
-	player_world_index := get_world_index(my_player.entity.position)
-	place_player(world_string, my_player, player_world_index)
-	render_world(world_string)
+
+
+	command: []u8
+	buf: [256]byte
+	
+	for {
+		
+		fmt.print("\n")
+		fmt.print("Enter command: ")
+		n, err := os.read(os.stdin, buf[:])
+		if err != nil {
+			fmt.eprintln("Error reading: ", err)
+		}
+
+		handle_player_turn(&my_world, strings.trim_space(string(buf[:n])))
+		// place_player(&my_world)
+		render_world(my_world)
+		
+		// fmt.println(my_world.player.position)
+	}
 
 
 	// fmt.printfln("Health: %i", my_player.health)
