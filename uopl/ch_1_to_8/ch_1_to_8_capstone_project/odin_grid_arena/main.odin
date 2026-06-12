@@ -47,8 +47,6 @@ handle_player_turn :: proc(world: ^World, command: string) {
 	world.str[player_index] = u8('.')
 	
 	switch command {
-	case "q": 
-		return
 	case "w": 
 		world.player.entity.position.y -= 1
 	case "s": 
@@ -140,18 +138,22 @@ main :: proc() {
 		str = world_str,
 	}
 
-	// place_player(&my_world)
-	// render_world(my_world)
+	place_player(&my_world)
+	render_world(my_world)
 
 	command: []u8
 	buf: [256]byte
 	
 	for {
 		fmt.print("\n")
-		fmt.print("Enter command: ")
+		fmt.print("Enter command (wasd): ")
 		n, _ := os.read(os.stdin, buf[:])
 
 		command := strings.trim_space(string(buf[:n]))
+
+		if command == "q" {
+			break
+		}
 
 		if !can_move_to(my_world, command) {
 			fmt.println("out of boundary")
