@@ -24,13 +24,15 @@ Player :: struct {
 // ---------------------------------------------
 
 render_world :: proc(world: []u8) {
-	for n, i in world {
-		if i % 10 == 0 {
-			fmt.print("\n")
+	for tile, index in world {
+		if index != 0 && index % MAP_WIDTH == 0 {
+			fmt.println()
 		}
-		fmt.printf("%c", n)
+
+		fmt.printf("%c", tile)
 	}
-	fmt.print("\n")
+
+	fmt.println()
 }
 
 get_world_index :: proc(position: Position) -> int {
@@ -40,9 +42,8 @@ get_world_index :: proc(position: Position) -> int {
 }
 
 
-place_player :: proc(world: []u8, player: Player, player_index: int) -> []u8 {
+place_player :: proc(world: []u8, player: Player, player_index: int) {
 	world[player_index] = u8(player.symbol)
-	return world
 }
 
 
@@ -59,6 +60,7 @@ make_world :: proc(width, height: int) -> []u8 {
 main :: proc() {
 	world_string := make_world(MAP_WIDTH, MAP_HEIGHT)
 	render_world(world_string)
+	fmt.printfln("\n")
 
 	my_player := Player{
 		entity = {
