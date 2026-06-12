@@ -8,6 +8,7 @@ import "core:strings"
 
 MAP_WIDTH :: 10
 MAP_HEIGHT :: 4
+MAX_ENEMIES :: 3
 
 Position :: [2]int
 
@@ -28,9 +29,14 @@ Tile :: enum {
 	Wall,
 }
 
+Enemy :: struct {
+	using entity: Entity,
+	health: int,
+}
+
 World :: struct {
 	tiles: [MAP_HEIGHT][MAP_WIDTH]Tile,
-	// enemies: [dynamic; MAX_ENEMIES]Enemy,
+	enemies: [dynamic; MAX_ENEMIES]Enemy,
 	// items: [dynamic; MAX_ITEMS]Item,
 	player: Player,
 	turn: int,
@@ -56,7 +62,7 @@ handle_player_turn :: proc(world: ^World, command: string) {
 	case "a": 	
 		world.player.entity.position.x -= 1
 	}
-	place_player(world)
+	place_entity(world)
 }
 
 render_world :: proc(world: World) {
@@ -77,8 +83,15 @@ get_world_index :: proc(position: Position) -> int {
 	return row * MAP_WIDTH + col
 }
 
-place_player :: proc(world: ^World) {
+place_entity :: proc(world: ^World) {
 	player_index := get_world_index(world.player.entity.position)
+
+	fmt.println(world.enemies)
+	for enemy in world.enemies {
+		enemy_index := get_world_index(enemy.entity.position)
+		world.str[enemy_index] = u8(enemy.symbol)
+	}
+
 	world.str[player_index] = u8(world.player.symbol)
 }
 
@@ -138,7 +151,33 @@ main :: proc() {
 		str = world_str,
 	}
 
-	place_player(&my_world)
+	append(&my_world.enemies, Enemy{
+		entity = {
+			position = {MAP_WIDTH - 1, MAP_HEIGHT - 1},
+			symbol = 'X',
+		},
+		health = 100,
+	})
+
+	append(&my_world.enemies, Enemy{
+		entity = {
+			position = {MAP_WIDTH / 2, MAP_HEIGHT - 1},
+			symbol = 'X',
+		},
+		health = 100,
+	})
+
+	append(&my_world.enemies, Enemy{
+		entity = {
+			position = {MAP_WIDTH / 3, MAP_HEIGHT - 4},
+			symbol = 'X',
+		},
+		health = 100,
+	})
+
+	// -------------------------------
+
+	place_entity(&my_world)
 	render_world(my_world)
 
 	command: []u8
