@@ -3,6 +3,7 @@ package grid_arena
 import "core:fmt"
 import "core:os"
 import "core:strings"
+import "core:math/rand"
 
 // ---------------------------------------------
 
@@ -10,12 +11,14 @@ MAP_WIDTH :: 10
 MAP_HEIGHT :: 4
 MAX_ENEMIES :: 3
 
+
 Position :: [2]int
 
 Entity :: struct {
 	id: int,
 	position: Position,
 	symbol: rune,
+	attack: int,
 }
 
 Player :: struct {
@@ -62,7 +65,27 @@ handle_player_turn :: proc(world: ^World, command: string) {
 	case "a": 	
 		world.player.entity.position.x -= 1
 	}
+	move_enemies_randomly(world)
 	place_entity(world)
+}
+
+move_enemies_randomly :: proc(world: ^World) {
+	for &en in world.enemies {
+		new_pos := en.entity.position
+
+		choice := rand.choice([]int{0, 1})
+
+		if choice == 0 {
+			new_pos.x += rand.choice([]int{-1, 1})
+		} else {
+			new_pos.y += rand.choice([]int{-1, 1})
+		}
+
+		if new_pos.x >= 0 && new_pos.x < MAP_WIDTH &&
+		   new_pos.y >= 0 && new_pos.y < MAP_HEIGHT {
+			en.entity.position = new_pos
+		}
+	}
 }
 
 render_world :: proc(world: World) {
@@ -83,15 +106,19 @@ get_world_index :: proc(position: Position) -> int {
 	return row * MAP_WIDTH + col
 }
 
-place_entity :: proc(world: ^World) {
-	player_index := get_world_index(world.player.entity.position)
+clear_world :: proc(world: ^World) {
+	for i := 0; i < len(world.str); i += 1 {
+		world.str[i] = '.'
+	}
+}
 
-	fmt.println(world.enemies)
+place_entity :: proc(world: ^World) {
+	clear_world(world)
 	for enemy in world.enemies {
 		enemy_index := get_world_index(enemy.entity.position)
 		world.str[enemy_index] = u8(enemy.symbol)
 	}
-
+	player_index := get_world_index(world.player.entity.position)
 	world.str[player_index] = u8(world.player.symbol)
 }
 
@@ -134,6 +161,11 @@ can_move_to :: proc(world: World, command: string) -> bool {
 	       y >= 0 && y < MAP_HEIGHT
 }
 
+
+attack_enemy :: proc(enemy: ^Enemy, damage: int) {
+
+}
+
 // ---------------------------------------------
 
 main :: proc() {
@@ -144,6 +176,7 @@ main :: proc() {
 			symbol = 'P',
 		},
 		health = 100,
+		attack = 10,
 	}
 	my_world := World {
 		player = my_player,
@@ -157,6 +190,7 @@ main :: proc() {
 			symbol = 'X',
 		},
 		health = 100,
+		attack = 5,
 	})
 
 	append(&my_world.enemies, Enemy{
@@ -165,6 +199,7 @@ main :: proc() {
 			symbol = 'X',
 		},
 		health = 100,
+		attack = 2,
 	})
 
 	append(&my_world.enemies, Enemy{
@@ -173,6 +208,7 @@ main :: proc() {
 			symbol = 'X',
 		},
 		health = 100,
+		attack = 3,
 	})
 
 	// -------------------------------
